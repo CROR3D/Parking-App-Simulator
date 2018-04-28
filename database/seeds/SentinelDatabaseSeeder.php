@@ -11,7 +11,7 @@ class SentinelDatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Create Users (izbrisana zadana linija koda 'truncate users table' zbog problema sa ključevima (users[id] -> user_id))
+        // Create Users (izbrisana zadana linija koda 'DB::table('users')->truncate();' zbog problema sa ključevima (users[id] -> user_id))
 
         $admin = Sentinel::getUserRepository()->create(array(
             'email'    => 'admin@admin.com',

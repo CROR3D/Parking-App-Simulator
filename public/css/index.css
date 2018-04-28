@@ -1,0 +1,108 @@
+html, body, .index-page {
+    margin: 0;
+    min-width: 300px;
+    width: 100%;
+    min-height: 750px;
+    height: 100vh;
+}
+
+/** {
+    outline: 1px solid red;
+}*/
+
+.index-page {
+    background-image: url(../images/index-background.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.index-logo {
+    width: 100%;
+    height: 130px;
+    margin: 65px 0 85px 0;
+}
+
+.index-logo img {
+    margin: 0 auto;
+    padding: 20px 30px;
+    max-height: 100%;
+}
+
+/* AUTH SLIDER */
+
+.frame {
+    width: 400px;
+    height: 350px;
+    overflow: hidden;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #E0F7FA;
+}
+
+.slider {
+    width: 380px;
+    height: 200%;
+}
+
+.slider a {
+    margin-left: 20px;
+}
+
+.slider a:hover {
+    cursor: pointer;
+}
+
+.login {
+    width: 100%;
+    height: 350px;
+}
+
+.register {
+    width: 100%;
+    height: 350px;
+}
+
+.simulator {
+    width: 400px;
+    height: 44px;
+    margin: 10px auto;
+}
+
+.simulator a {
+    line-height: 30px;
+    font-size: 16px;
+}
+
+
+@media only screen and (max-width: 540px) {
+    .index-logo {
+        margin: 65px 0 65px 0;
+    }
+}
+
+@media only screen and (max-width: 430px) {
+    .container {
+        width: 100%;
+        padding: 0;
+    }
+
+    .frame {
+        width: 100%;
+    }
+
+    .slider {
+        width: 100%;
+    }
+
+    .simulator {
+        width: 100%;
+        padding: 10px;
+    }
+}
+
+@media only screen and (max-width: 340px) {
+    .index-logo {
+        margin: 65px 0 45px 0;
+    }
+}
