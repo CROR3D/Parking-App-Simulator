@@ -18,6 +18,7 @@ class CreateReservationsTable extends Migration
             $table->integer('parking_id')->unsigned()->nullable()->index();
             $table->integer('code')->index();
             $table->dateTime('expire_time')->nullable();
+            $table->timestamps();
 
             $table->engine = 'InnoDB';
         });

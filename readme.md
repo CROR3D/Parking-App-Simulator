@@ -1,4 +1,4 @@
-![ScreenShot](/images/logo.svg)
+<p align="center">CITY PARKING</p>
 
 ## Seminarski rad - Programer internet aplikacija (PHP & MySQL)
 - RAD: Aplikacija za uređena parkirališta + Parking simulator
@@ -12,7 +12,7 @@ Korisnici imaju mogućnost:
  - rezervirati mjesto na parkingu
  - vidjeti trenutačno stanje na parkingu (broj zauzetih mjesta / broj rezerviranih mjesta / ukupan broj mjesta)
 
-    REZERVIRANJE PARKIRNOG MJESTA
+    ###### REZERVIRANJE PARKIRNOG MJESTA
     Dok pregledavaju stanje na parkiralištima koja podržavaju ovu aplikaciju korisnici imaju mogućnost rezervirati mjesto.
 
     Rezervacija mjesta:
