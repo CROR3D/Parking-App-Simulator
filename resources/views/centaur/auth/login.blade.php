@@ -2,6 +2,10 @@
 
 @section('title', 'Login')
 
+@push('custom-css')
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/auth.css') }}">
+@endpush
+
 @section('content')
 <div class="row">
     <div class="col-md-4 col-md-offset-4">

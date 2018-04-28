@@ -1,4 +1,4 @@
-<p align="center">CITY PARKING</p>
+<h1 align="center">CITY PARKING</h1>
 
 ## Seminarski rad - Programer internet aplikacija (PHP & MySQL)
 - RAD: Aplikacija za uređena parkirališta + Parking simulator
@@ -56,7 +56,7 @@ Za potrebe testiranja ove aplikacije izradio sam simulator ulaska i izlaska vozi
         Novac zamjenjuje jednostavan upis brojeva (ako upišete broj 7 znači da ste ubacili 7 kn).
 
 
-APLIKACIJA
+## APLIKACIJA
 
 - Laravel
 - Centaur Sentinel
@@ -65,7 +65,7 @@ APLIKACIJA
 - logo u Adobe Illustratoru
 
 
-PROBLEMI I KODIRANJE
+## PROBLEMI I KODIRANJE
 
 - nisam koristio mailgun jer sam imao nekakvih problema sa GUZZLE-om. Error:
     (GuzzleHttp\Exception\ClientException: Client error: `POST https://api.mailgun.net/v3/sandbox22f9hisujrundei134m9nf84.mailgun.org/messages.mime` resulted in a `400 BAD REQUEST` response:
@@ -80,6 +80,6 @@ PROBLEMI I KODIRANJE
  ovo baš ispravan način ili se može napraviti da se brišu direktno u bazi kad vrijeme istekne?
 
 
-UPOZORENJA
+## UPOZORENJA
 
 - U SentinelDatabaseSeeder.php datoteci sam izbrisao jednu liniju KODA (označeno komentarom u datoteci)

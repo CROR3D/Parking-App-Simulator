@@ -1,0 +1,52 @@
+.nav-dropdown-link{
+    float: left;
+    text-decoration: none;
+    color: #777;
+    line-height: 20px;
+    background-color: transparent;
+    box-sizing: border-box;
+}
+
+.nav-dropdown-link a {
+    position: relative;
+    display: block;
+    padding: 15px 15px;
+}
+
+.nav-dropdown-link a:hover {
+    cursor: pointer;
+}
+
+.blue {
+    color: #42A5F5;
+}
+
+table, th, td {
+    text-align: center;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px;
+}
+
+.payment_device .row {
+    margin: 15px 0;
+    width: 100%;
+}
+
+.exit_ramp .row{
+    margin: 15px 0;
+    width: 100%;
+}
+
+@media only screen and (max-width: 767px) {
+    .nav-dropdown-link {
+        width: 100%;
+    }
+
+    .navbar-text {
+        padding-left: 15px;
+    }
+}

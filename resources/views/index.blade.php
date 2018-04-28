@@ -75,7 +75,7 @@
         </div>
             </div>
             <div class="simulator">
-                <a class="btn btn-success btn-block" href="#">PARKING SIMULATOR</a>
+                <a class="btn btn-success btn-block" href="{{ route('simulator') }}">PARKING SIMULATOR</a>
             </div>
         </div>
     </div>

@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', ['as' => 'index', 'uses' => 'NavbarController@index']);
 
 // Authorization
 Route::get('/login', 'Auth\SessionController@getLogin')->name('auth.login.form');
@@ -38,6 +36,11 @@ Route::post('password/reset', 'Auth\PasswordController@postRequest')->name('auth
 // Users
 Route::resource('users', 'UserController');
 
+// Navbar
+Route::get('view', ['as' => 'view', 'uses' => 'NavbarController@select']);
+Route::get('create', 'ParkingsController@create_form');
+Route::post('create', ['as' => 'create', 'uses' => 'ParkingsController@create']);
+
 // Roles
 Route::resource('roles', 'RoleController');
 
@@ -45,3 +48,10 @@ Route::resource('roles', 'RoleController');
 Route::get('dashboard', ['as' => 'dashboard', 'uses' => function() {
     return view('centaur.dashboard');
 }]);
+
+// Simulator
+Route::get('simulator', ['as' => 'simulator', 'uses' => 'SelectController@select']);
+Route::post('simulator', ['as' => 'post_simulator', 'uses' => 'SelectController@get_parking']);
+
+Route::get('simulator/{slug}', ['as' => 'parking_select', 'uses' => 'SelectController@view_parking']);
+Route::get('view/{slug}', ['as' => 'parking_view', 'uses' => 'SelectController@view_parking']);
