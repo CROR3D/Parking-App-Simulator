@@ -36,18 +36,6 @@ class SimulatorController extends Controller
         $spots_reserved = Reservation::where('parking_id', $parking->id)->count();
         $spots_taken = $spots_current + $spots_reserved;
 
-        if($_POST) {
-
-            switch ($_POST[$button]) {
-                case 'enter':
-                        include 'simulator/numpad.php';
-                    break;
-
-                default:
-                    # code...
-                    break;
-            }
-
-        }
+        dd($_POST);
     }
 }

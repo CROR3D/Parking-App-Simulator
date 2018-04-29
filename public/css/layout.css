@@ -23,7 +23,6 @@
 
 table, th, td {
     text-align: center;
-    border: 1px solid black;
     border-collapse: collapse;
 }
 
@@ -41,6 +40,21 @@ th, td {
     width: 100%;
 }
 
+.parking_map {
+    width: 80%;
+    height: 400px;
+    margin: 40px auto;
+}
+
+.parking_map img {
+    width: 100%;
+    height: 100%;
+}
+
+.spacing {
+    margin-top: 50px;
+}
+
 @media only screen and (max-width: 767px) {
     .nav-dropdown-link {
         width: 100%;
@@ -48,5 +62,17 @@ th, td {
 
     .navbar-text {
         padding-left: 15px;
+    }
+
+    .parking_map {
+        width: 90%;
+        height: 350px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .parking_map {
+        width: 100%;
+        height: 250px;
     }
 }

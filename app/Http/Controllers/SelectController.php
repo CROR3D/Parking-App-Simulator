@@ -24,28 +24,44 @@ class SelectController extends Controller
         }
 
         foreach ($parking_list as $parking) {
-            $parking_values[$parking->name] = $city_values[$parking->city];
+            $parking_values[$parking->slug] = $city_values[$parking->city];
         }
 
-        return view('simulator.select')->with([
-            'city_list' => $city_list,
-            'parking_list' => $parking_list,
-            'city_values' => $city_values,
-            'parking_values' => $parking_values
-        ]);
+        if (Sentinel::check()) {
+            return view('centaur.parking.view')->with([
+                'city_list' => $city_list,
+                'parking_list' => $parking_list,
+                'city_values' => $city_values,
+                'parking_values' => $parking_values
+            ]);
+        } else {
+            return view('simulator.select')->with([
+                'city_list' => $city_list,
+                'parking_list' => $parking_list,
+                'city_values' => $city_values,
+                'parking_values' => $parking_values
+            ]);
+        }
+    }
+
+    public function index()
+    {
+            return view('index');
     }
 
     public function get_parking()
     {
-        $name = $_POST['select'];
+        $slug = $_POST['select'];
 
-        if($name) {
-
-            $slug = Parking::where('name', $name)->first()->slug;
+        if($slug) {
 
             $parking = Parking::where('slug', $slug)->first();
 
-            return redirect()->route('parking_select', ['slug' => $slug]);
+            if (Sentinel::check()) {
+                return redirect()->route('parking_view', ['slug' => $slug]);
+            } else {
+                return redirect()->route('parking_select', ['slug' => $slug]);
+            }
 
         } else {
 
@@ -89,7 +105,7 @@ class SelectController extends Controller
             'expire' => null
         ];
 
-        if(Sentinel::check()) {
+        if (Sentinel::check()) {
             $user_id = Sentinel::getUser()->id;
 
             if($res = Reservation::where('user_id', $user_id)->first()) {

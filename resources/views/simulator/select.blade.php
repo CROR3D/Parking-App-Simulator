@@ -9,10 +9,10 @@
 <!-- LOGIRANI TREBAJU IMATI DRUGAČIJU RUTU ZA VIEW PARKING OD SIMULATORA -->
 
 @section('content')
-    <div class="map"></div>
-
+<div class="jumbotron">
+    <h2 class="title">Parking Simulator</h2>
     <div class="row select-form">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-6">
             <form accept-charset="UTF-8" role="form" method="post" action="{{ route('post_simulator', ['slug' => 'parking']) }}">
                 {{ csrf_field() }}
 
@@ -31,7 +31,7 @@
                         <select class="form-control" name="select_parking" id="select2" disabled>
                             <option>---</option>
                             @foreach($parking_list as $parking)
-                                  <option class="dropdown-item" value="{{ $parking_values[$parking->name] }}">{{ $parking->name }}</option>
+                                  <option name="{{ $parking->slug }}" class="dropdown-item" value="{{ $parking_values[$parking->slug] }}">{{ $parking->name }}</option>
                             @endforeach
                         </select>
                 </div>
@@ -45,6 +45,7 @@
             </form>
         </div>
     </div>
+</div>
 @stop
 
 @push('script')
@@ -73,8 +74,8 @@
         });
 
         $("#select2").change(function() {
-            var text = $('#select2').find(':selected').text();
-            $('button[name=select]').val(text);
+            var slug = $('#select2').find(':selected').attr('name');
+            $('button[name=select]').val(slug);
         });
     </script>
 @endpush

@@ -1,0 +1,17 @@
+.number-box {
+    width: 100%;
+    padding: 10px 0;
+}
+
+
+.time {
+    font-family: monospace;
+    width: 5.5ch;
+    display: inline-block;
+}
+
+.prices {
+    font-family: monospace;
+    width: 5.5ch;
+    display: inline-block;
+}

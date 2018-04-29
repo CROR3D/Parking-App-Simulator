@@ -28,10 +28,16 @@ class StoreParking extends FormRequest
             'name' => 'required',
             'address' => 'required',
             'spots' => 'required|numeric',
-            'working_time' => 'required',
+            'working_time' => 'required|numeric|max:24',
+            'working_time_two' => 'required|numeric|max:60',
+            'working_time_three' => 'required|numeric|max:24',
+            'working_time_four' => 'required|numeric|max:60',
             'price_per_hour' => 'required|numeric',
+            'price_per_hour_two' => 'required|numeric',
             'price_of_reservation' => 'required|numeric',
-            'price_of_reservation_penalty' => 'required|numeric'
+            'price_of_reservation_two' => 'required|numeric',
+            'price_of_reservation_penalty' => 'required|numeric',
+            'price_of_reservation_penalty_two' => 'required|numeric'
         ];
     }
 }
