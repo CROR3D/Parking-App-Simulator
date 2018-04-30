@@ -8,6 +8,7 @@ use App\Models\Ticket;
 use App\Models\Reservation;
 use Carbon\Carbon;
 use Sentinel;
+use Route;
 
 class SelectController extends Controller
 {
@@ -27,14 +28,17 @@ class SelectController extends Controller
             $parking_values[$parking->slug] = $city_values[$parking->city];
         }
 
-        if (Sentinel::check()) {
+        if(Route::current()->getName() == 'view') {
+
             return view('centaur.parking.view')->with([
                 'city_list' => $city_list,
                 'parking_list' => $parking_list,
                 'city_values' => $city_values,
                 'parking_values' => $parking_values
             ]);
-        } else {
+
+        } elseif(Route::current()->getName() == 'simulator') {
+
             return view('simulator.select')->with([
                 'city_list' => $city_list,
                 'parking_list' => $parking_list,
@@ -57,9 +61,12 @@ class SelectController extends Controller
 
             $parking = Parking::where('slug', $slug)->first();
 
-            if (Sentinel::check()) {
+            if(Route::current()->getName() == 'view_form') {
+
                 return redirect()->route('parking_view', ['slug' => $slug]);
-            } else {
+
+            } elseif(Route::current()->getName() == 'post_simulator') {
+
                 return redirect()->route('parking_select', ['slug' => $slug]);
             }
 
@@ -67,8 +74,14 @@ class SelectController extends Controller
 
             session()->flash('info', 'Please select parking lot you want to enter.');
 
-            return redirect()->route('simulator');
+            if(Route::current()->getName() == 'view_form') {
 
+                return redirect()->route('view');
+
+            } elseif(Route::current()->getName() == 'post_simulator') {
+
+                return redirect()->route('simulator');
+            }
         }
     }
 
@@ -116,25 +129,15 @@ class SelectController extends Controller
             }
         }
 
-        if(session('got_ticket') === 1) {
-            $status['entrance'] = 2;
-        }
+        if(session('got_ticket') === 1) $status['entrance'] = 2;
 
-        if(session('value')) {
-            $status['value'] = session('value');
-        }
+        if(session('value')) $status['value'] = session('value');
 
-        if(session('got_ticket') === 2) {
-            $status['entrance'] = 3;
-        }
+        if(session('got_ticket') === 2) $status['entrance'] = 3;
 
-        if(session('got_ticket') === 3) {
-            $status['entrance'] = 4;
-        }
+        if(session('got_ticket') === 3) $status['entrance'] = 4;
 
-        if(session('got_ticket') === 4) {
-            $status['entrance'] = 5;
-        }
+        if(session('got_ticket') === 4) $status['entrance'] = 5;
 
         if(session('got_ticket') === 5) {
             $status['entrance'] = 5;
@@ -153,15 +156,32 @@ class SelectController extends Controller
             $ticket['refund'] = session('refund');
         }
 
-        return view('centaur.parking.parking')->with([
-            'parking' => $parking,
-            'status' => $status,
-            'reservation' => $reservation,
-            'has_reservation' => $has_reservation,
-            'count' => $count,
-            'ticket' => $ticket,
-            'ticket_check' => $ticket_check,
-            'exit_ticket_check' => $exit_ticket_check
-        ]);
+        if(Route::current()->getName() == 'parking_view') {
+
+            return view('centaur.parking.parking')->with([
+                'parking' => $parking,
+                'status' => $status,
+                'reservation' => $reservation,
+                'has_reservation' => $has_reservation,
+                'count' => $count,
+                'ticket' => $ticket,
+                'ticket_check' => $ticket_check,
+                'exit_ticket_check' => $exit_ticket_check
+            ]);
+
+        } elseif (Route::current()->getName() == 'parking_select') {
+
+            return view('simulator.parking')->with([
+                'parking' => $parking,
+                'status' => $status,
+                'reservation' => $reservation,
+                'has_reservation' => $has_reservation,
+                'count' => $count,
+                'ticket' => $ticket,
+                'ticket_check' => $ticket_check,
+                'exit_ticket_check' => $exit_ticket_check
+            ]);
+
+        }
     }
 }

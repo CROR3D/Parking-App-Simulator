@@ -44,6 +44,7 @@
             <div class="panel-heading"><h3>Rezervacija</h3></div>
             <div class="panel-body">
                 <h4>Cijena za rezervaciju: {{ $parking->price_of_reservation }} kn</h4>
+                <h4>Trajanje rezervacije: 25 minuta</h4>
                 <h4>Naknada za propuštenu rezervaciju: {{ $parking->price_of_reservation_penalty }} kn</h4>
                 <h4>Vrijeme za otkazivanje: 5 minuta</h4>
                 <h4>Onemogućeno korištenje rezervacije nakon otkazivanja: 10 minuta</h4>

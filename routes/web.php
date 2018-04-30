@@ -36,6 +36,10 @@ Route::resource('users', 'UserController');
 
 // Navbar
 Route::get('view', ['as' => 'view', 'uses' => 'SelectController@select']);
+Route::post('view', ['as' => 'view_form', 'uses' => 'SelectController@get_parking']);
+
+Route::get('view/{slug}', ['as' => 'parking_view', 'uses' => 'SelectController@view_parking']);
+
 Route::get('create', 'ParkingsController@create_form');
 Route::post('create', ['as' => 'create', 'uses' => 'ParkingsController@create']);
 
@@ -48,22 +52,11 @@ Route::get('dashboard', ['as' => 'dashboard', 'uses' => function() {
 }]);
 
 // Home
-if(Auth::check()){
-    Route::get('/', function() {
-        return redirect()->route('dashboard');
-    });
-}else{
-    Route::get('/', ['as' => 'index', 'uses' => 'SelectController@index']);
-}
+Route::get('/', ['as' => 'index', 'uses' => 'SelectController@index']);
 
 // Simulator
 Route::get('simulator', ['as' => 'simulator', 'uses' => 'SelectController@select']);
 Route::post('simulator', ['as' => 'post_simulator', 'uses' => 'SelectController@get_parking']);
 
 Route::get('simulator/{slug}', ['as' => 'parking_select', 'uses' => 'SelectController@view_parking']);
-
-// Forms
 Route::post('simulator/{slug}', ['as' => 'simulator_forms', 'uses' => 'SimulatorController@parking_form']);
-
-// Views
-Route::get('view/{slug}', ['as' => 'parking_view', 'uses' => 'SelectController@view_parking']);

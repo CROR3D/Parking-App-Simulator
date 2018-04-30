@@ -36,6 +36,23 @@ class SimulatorController extends Controller
         $spots_reserved = Reservation::where('parking_id', $parking->id)->count();
         $spots_taken = $spots_current + $spots_reserved;
 
+        $form_buttons = [
+            'enter',
+            'ticket',
+            'green',
+            'reservation',
+            'reservation_true',
+            'payment',
+            'back_to_parking',
+            'already_got_ticket',
+            'go_to_exit',
+            'walk_out',
+            'submit_ticket',
+            'exit_submit_ticket',
+            'submit_coins',
+            'exit_success'
+        ]
+
         dd($_POST);
     }
 }

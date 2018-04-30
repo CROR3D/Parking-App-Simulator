@@ -80,6 +80,6 @@ Za potrebe testiranja ove aplikacije izradio sam simulator ulaska i izlaska vozi
  ovo baš ispravan način ili se može napraviti da se brišu direktno u bazi kad vrijeme istekne?
 
 
-## UPOZORENJA
+## NAPOMENA
 
 - U SentinelDatabaseSeeder.php datoteci sam izbrisao jednu liniju KODA (označeno komentarom u datoteci)
