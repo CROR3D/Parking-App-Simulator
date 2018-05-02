@@ -9,12 +9,12 @@
 @section('content')
     <div class="jumbotron">
         <div class="text-center">
-            <h2>Grad: {{ $parking->city }}</h2>
-            <h3>Parkiralište: {{ $parking->name }}</h3>
-            <h4>Adresa: {{ $parking->address }}</h4>
-            <h4>Radno vrijeme: {{ $parking->working_time }}</h4>
-            <h4>Broj parkirnih mjesta: {{ $parking->spots }}</h4>
-            <h4>Cijena po satu: {{ $parking->price_per_hour }} kn/h</h4>
+            <h2>City: {{ $parking->city }}</h2>
+            <h3>Parking lot: {{ $parking->name }}</h3>
+            <h4>Address: {{ $parking->address }}</h4>
+            <h4>Working time: {{ $parking->working_time }}</h4>
+            <h4>Number of parking spots: {{ $parking->spots }}</h4>
+            <h4>Price per hour: {{ $parking->price_per_hour }} kn/h</h4>
         </div>
 
         <div class="parking_map">

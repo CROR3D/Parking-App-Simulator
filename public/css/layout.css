@@ -54,6 +54,50 @@ th, td {
 .spacing {
     margin-top: 50px;
 }
+.spacing-btm {
+    margin-bottom: 50px;
+}
+
+.position-helper {
+    width: 80%;
+    height: 150px;
+    margin: 20px auto;
+}
+
+.position-helper img {
+    width: 100%;
+    height: 100%;
+    filter: grayscale();
+}
+
+.service {
+    padding: 30px;
+}
+
+.numpad {
+    padding: 30px 15px 0 15px;
+    width: 40%;
+}
+
+#screen {
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  font-size: 20px;
+}
+
+.num-row {
+    margin: 0 0 20px 0;
+    width: 100%;
+}
+
+.num-row input{
+    width: 100%;
+}
+
+.btn-group-justified:last-of-type {
+    margin-bottom: 20px;
+}
 
 @media only screen and (max-width: 767px) {
     .nav-dropdown-link {
@@ -67,6 +111,12 @@ th, td {
     .parking_map {
         width: 90%;
         height: 350px;
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .numpad {
+        width: 100%;
     }
 }
 
