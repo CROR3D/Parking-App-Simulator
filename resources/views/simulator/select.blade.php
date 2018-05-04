@@ -26,5 +26,5 @@
 @stop
 
 @push('script')
-    @include('simulator.sub-views.dropdown_script')
+    <script type="text/javascript" src="{{ URL::asset('js/dropdown.js') }}"></script>
 @endpush

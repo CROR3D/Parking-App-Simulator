@@ -22,13 +22,13 @@
         </div>
 
         <div class="text-center spacing">
-            <h4>Stanje na parkingu: </h4>
+            <h4>Parking situation: </h4>
             <div class="table-responsive">
                 <table class="table">
                     <tr>
-                        <th>Zauzeto mjesta</th>
-                        <th>Rezervirano mjesta</th>
-                        <th>Ukupno mjesta</th>
+                        <th>Parking spots taken</th>
+                        <th>Parking spots reserved</th>
+                        <th>Total parking spots</th>
                     </tr>
 
                     <tr>
@@ -41,18 +41,18 @@
         </div>
 
         <div class="panel panel-default spacing">
-            <div class="panel-heading"><h3>Rezervacija</h3></div>
+            <div class="panel-heading"><h3>Rezervation</h3></div>
             <div class="panel-body">
-                <h4>Cijena za rezervaciju: {{ $parking->price_of_reservation }} kn</h4>
-                <h4>Trajanje rezervacije: 25 minuta</h4>
-                <h4>Naknada za propuštenu rezervaciju: {{ $parking->price_of_reservation_penalty }} kn</h4>
-                <h4>Vrijeme za otkazivanje: 5 minuta</h4>
-                <h4>Onemogućeno korištenje rezervacije nakon otkazivanja: 10 minuta</h4>
+                <h4>Price of reservation: {{ $parking->price_of_reservation }} kn</h4>
+                <h4>Duration of reservation: 25 minutes</h4>
+                <h4>Charge for missed reservation: {{ $parking->price_of_reservation_penalty }} kn</h4>
+                <h4>Time to cancel: 5 minutes</h4>
+                <h4>Disabled usage of service after cancellation: 10 minutes</h4>
             </div>
             <div class="panel-footer">
                 <form accept-charset="UTF-8" role="form" method="post" action="{{ route('simulator_forms', ['slug' => $parking->slug]) }}">
                     <button class="btn {{ ($has_reservation) ? 'btn-danger' : 'btn-primary' }} btn-lg" name="{{ ($has_reservation) ? 'reservation_true' : 'reservation' }}" type="submit">
-                        {{ ($has_reservation) ? 'Otkaži Rezervaciju' : 'Rezerviraj Mjesto' }}
+                        {{ ($has_reservation) ? 'Cancel reservation' : 'Make reservation' }}
                     </button>
                     {{ csrf_field() }}
                 </form>

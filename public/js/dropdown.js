@@ -1,4 +1,4 @@
-<script>
+$(document).ready(function() {
     $(window).on('load', function() {
         $("#select1").val('---');
         $("#select2").val('---');
@@ -26,4 +26,4 @@
         var slug = $('#select2').find(':selected').attr('name');
         $('button[name=select]').val(slug);
     });
-</script>
+});
