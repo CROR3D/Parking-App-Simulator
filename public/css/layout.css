@@ -17,6 +17,19 @@
     cursor: pointer;
 }
 
+.tutorial {
+    border: 1px solid lightgrey;
+    border-radius: 4px;
+    background-color: white;
+    padding: 20px;
+    margin-top: 25px;
+    text-align: center;
+}
+
+.position-helper {
+    font-size: 20px;
+}
+
 .blue {
     color: #42A5F5;
 }
@@ -58,18 +71,6 @@ th, td {
     margin-bottom: 50px;
 }
 
-.position-helper {
-    width: 70%;
-    height: 150px;
-    margin: 20px auto;
-}
-
-.position-helper img {
-    width: 100%;
-    height: 100%;
-    filter: grayscale();
-}
-
 .service {
     padding: 30px;
 }
@@ -88,22 +89,29 @@ th, td {
     width: 40%;
 }
 
-#screen, #ticket-screen {
+#screen, #ticket-screen, #insert_ticket, #insert_coins, #coin_refund {
   text-align: center;
   height: 35px;
   line-height: 35px;
   font-size: 20px;
 }
 
-#payment_screen, #insert_ticket, #insert_coins, #coin_refund {
+#payment_screen {
     text-align: center;
-    height: 30px;
-    line-height: 30px;
-    font-size: 20px;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    font-size: 25px;
+}
+
+#insert_ticket, #insert_coins, #coin_refund {
+    width: 50%;
+    margin: 50px 0 15px 0;
 }
 
 .num-row {
     width: 100%;
+    margin-bottom: 25px;
 }
 
 .num-row input, .ticket-area input{
@@ -118,12 +126,12 @@ th, td {
     margin: 25px auto;
     width: 50%;
     padding: 30px;
-    border-color: lightblue;
+    border-width: 3px;
 }
 
 .payment-device .row{
     width: 100%;
-    padding: 0 20px;
+    margin: 0;
 }
 
 .payment-device button{
@@ -193,6 +201,10 @@ th, td {
     }
 
     .helper {
+        width: 100%;
+    }
+
+    #insert_ticket, #insert_coins, #coin_refund {
         width: 100%;
     }
 }

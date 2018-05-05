@@ -36,8 +36,8 @@
                   Enter working time:
                   <div class="number-box">
                       <input type="text" class="form-control time" name="working_time" /> : <input type="text" class="form-control time" name="working_time_two" />
-                       -
-                      <input type="text" class="form-control time" name="working_time_three" /> : <input type="text" class="form-control time" name="working_time_four" />
+                      h -
+                      <input type="text" class="form-control time" name="working_time_three" /> : <input type="text" class="form-control time" name="working_time_four" /> h
                   </div>
                   {!! ($errors->has('working_time')) ? $errors->first('working_time', '<p class="text-danger">:message</p>') : '' !!}
                   {!! ($errors->has('working_time_two')) ? $errors->first('working_time_two', '<p class="text-danger">:message</p>') : '' !!}

@@ -21,6 +21,11 @@
                 </button>
             </form>
         </div>
+
+        <div class="col-md-offset-2 col-md-4 tutorial">
+            <h4>Check helper for parking simulator</h4>
+            <a class="btn btn-block btn-info" href="{{ route('simulator_help') }}">HELP</a>
+        </div>
     </div>
 </div>
 @stop

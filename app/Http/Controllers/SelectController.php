@@ -53,6 +53,11 @@ class SelectController extends Controller
             return view('index');
     }
 
+    public function helper()
+    {
+            return view('simulator.helper');
+    }
+
     public function get_parking()
     {
         $slug = $_POST['select'];
@@ -128,6 +133,8 @@ class SelectController extends Controller
                 $has_reservation = true;
             }
         }
+
+        // SLANJE PODATAKA PREKO SessionHelpera za rad Simulatora
 
         if(session('got_ticket') === 1) $status['entrance'] = 2;
 

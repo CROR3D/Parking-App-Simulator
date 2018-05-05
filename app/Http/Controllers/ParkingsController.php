@@ -9,6 +9,13 @@ use Sentinel;
 
 class ParkingsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('sentinel.auth');
+        $this->middleware('sentinel.role:administrator');
+    }
+
     public function create(StoreParking $request)
     {
         $parking = array(

@@ -41,7 +41,7 @@
         </div>
 
         <div class="panel panel-default spacing">
-            <div class="panel-heading"><h3>Rezervation</h3></div>
+            <div class="panel-heading"><h3>Reservation</h3></div>
             <div class="panel-body">
                 <h4>Price of reservation: {{ $parking->price_of_reservation }} kn</h4>
                 <h4>Duration of reservation: 25 minutes</h4>
@@ -50,7 +50,7 @@
                 <h4>Disabled usage of service after cancellation: 10 minutes</h4>
             </div>
             <div class="panel-footer">
-                <form accept-charset="UTF-8" role="form" method="post" action="{{ route('simulator_forms', ['slug' => $parking->slug]) }}">
+                <form accept-charset="UTF-8" role="form" method="post" action="{{ route('view_forms', ['slug' => $parking->slug]) }}">
                     <button class="btn {{ ($has_reservation) ? 'btn-danger' : 'btn-primary' }} btn-lg" name="{{ ($has_reservation) ? 'reservation_true' : 'reservation' }}" type="submit">
                         {{ ($has_reservation) ? 'Cancel reservation' : 'Make reservation' }}
                     </button>

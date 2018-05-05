@@ -19,22 +19,14 @@
     </div>
 
     <div class="jumbotron text-center">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb spacing-btm">
+        <nav class="position-helper" aria-label="breadcrumb">
+            <ol class="breadcrumb">
                 <li class="{{ ($status['entrance'] < 3) ? 'blue' : ''}}"data-rel="1">Entrance Barrier</li>
                 <li class="{{ ($status['entrance'] == 3) ? 'blue' : ''}}" data-rel="2">Parking</li>
                 <li class="{{ ($status['entrance'] == 4) ? 'blue' : ''}}"data-rel="3">Payment Device</li>
                 <li class="{{ ($status['entrance'] == 5) ? 'blue' : ''}}"data-rel="4">Exit Barrier</li>
             </ol>
         </nav>
-
-        <div class="position-helper">
-            @if($status['entrance'] < 3 || $status['entrance'] == 5)
-                <img class="img-responsive" src="{{ URL::asset('images/barrier.png') }}"/>
-            @elseif($status['entrance'] == 3)
-                <img class="img-responsive" src="{{ URL::asset('images/parking.png') }}"/>
-            @endif
-        </div>
     </div>
 
     <div class="jumbotron">
@@ -43,7 +35,7 @@
                 {{ csrf_field() }}
 
                     <div class="panel panel-default button-area text-center">
-                        <h4 class="text-center spacing-btm">Movement helper</h4>
+                        <h3 class="text-center spacing-btm">Movement helper</h3>
                         @if($status['entrance'] <= 2)
                             <div class="helper">
                                 <p>Access parking lot without getting a new ticket</p>
@@ -64,8 +56,8 @@
                             </div>
                         @elseif($status['entrance'] == 4)
                             <div class="helper">
-                                <p>Go back to the car</p>
-                                <button class="btn btn-info btn-md" name="back_to_parking" type="submit">Go back to parking area</button>
+                                <p>Go back to the parking area</p>
+                                <button class="btn btn-info btn-md" name="back_to_parking" type="submit">Parking area</button>
                             </div>
                             <div class="helper">
                                 <p>Leave parking lot</p>
@@ -74,7 +66,7 @@
                         @elseif($status['entrance'] == 5)
                             <div class="helper">
                                 <p>Go back to the parking area</p>
-                                <button class="btn btn-info btn-md" name="back_to_parking" type="submit">Go back to parking area</button>
+                                <button class="btn btn-info btn-md" name="back_to_parking" type="submit">Parking area</button>
                             </div>
                             <div class="helper">
                                 <p>Pay the ticket</p>
@@ -85,7 +77,7 @@
 
         @if($status['entrance'] < 3)
                     <div class="panel panel-default service">
-                        <h4 class="text-center spacing-btm">Entrance service</h4>
+                        <h3 class="text-center spacing-btm">Entrance service</h3>
                         <div class="panel-body">
                             <div class="panel panel-default numpad">
                                 @include('simulator.sub-views.numpad')
@@ -102,7 +94,7 @@
         @elseif($status['entrance'] == 3)
 
                     <div class="panel panel-default service">
-                        <h4 class="text-center spacing-btm">Parking lot view</h4>
+                        <h3 class="text-center spacing-btm">Parking lot view</h3>
                         <div class="panel-body">
                             <div class="parking_map">
                                 <img class="img-responsive" src="{{ URL::asset('images/zagreb-centar-2.jpg') }}" />
@@ -129,30 +121,26 @@
 
         @elseif($status['entrance'] == 4)
                     <div class="panel panel-default service">
-                        <h4 class="text-center spacing-btm">Payment device</h4>
+                        <h3 class="text-center spacing-btm">Payment device</h3>
                         <div class="panel-body">
                             <div class="payment-device">
-                                <div class="panel panel-default">
-                                    <h4>Price of the ticket: </h4>
+                                <div class="panel panel-primary">
                                     <div class="row">
-                                        <input id="payment_screen" type="text" name="payment_screen" value="{{ ($ticket['price'] == 0) ? '' : $ticket['price'] }}" readonly/> kn
+                                        <input id="payment_screen" type="text" name="payment_screen" value="{{ ($ticket['price'] == 0) ? '' : $ticket['price'] }}" readonly/>
                                     </div>
 
-                                    <h4>Insert ticket into the device: </h4>
                                     <div class="row">
-                                        <input id="insert_ticket" type="text" name="insert_ticket" value="{{ ($ticket_check) ? $ticket_check : '' }}" {{ ($ticket_check) ? 'readonly' : '' }}/>
+                                        <input id="insert_ticket" type="text" name="insert_ticket" placeholder="Insert ticket" value="{{ ($ticket_check) ? $ticket_check : '' }}" {{ ($ticket_check) ? 'readonly' : '' }}/>
                                     </div>
                                     <button class="btn btn-primary btn-md" name="submit_ticket" type="submit" {{ ($ticket['price'] == 0) ? '' : 'disabled' }}>Accept ticket</button>
 
-                                    <h4>Insert coins into the device: </h4>
                                     <div class="row">
-                                        <input id="insert_coins" type="text" name="insert_coins" value="" /> kn
+                                        <input id="insert_coins" type="text" name="insert_coins" placeholder="Insert coins" value="" />
                                     </div>
                                     <button class="btn btn-primary btn-md" name="submit_coins" type="submit" {{ ($ticket['price'] == 0) ? 'disabled' : '' }}>Accept coins</button>
 
-                                    <h4>Coin refund: </h4>
                                     <div class="row">
-                                        <input id="coin_refund" type="text" name="coin_refund" value="{{ ($ticket['refund'] == 0) ? '' : $ticket['refund'] }}" readonly/> kn
+                                        <input id="coin_refund" type="text" name="coin_refund" placeholder="Coin refund" value="{{ ($ticket['refund'] == 0) ? '' : $ticket['refund'] }}" readonly/>
                                     </div>
                                 </div>
                             </div>
