@@ -14,6 +14,7 @@ class ReservationsController extends Controller
 
     public function __construct()
     {
+
         // PROVJERA POSTOJE LI REZERVACIJE koje su istekle (brišu se ako postoje)
 
         $expire_time = Carbon::now();

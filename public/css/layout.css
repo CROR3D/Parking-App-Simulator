@@ -26,6 +26,11 @@
     text-align: center;
 }
 
+.dashboard {
+    margin-top: 50px;
+    padding: 25px;
+}
+
 .position-helper {
     font-size: 20px;
 }

@@ -30,12 +30,11 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
+                            <li class="{{ Request::is('/dashboard') ? 'active' : '' }}"><a href="{{ route('dashboard') }}">Dashboard</a></li>
                             @if (Sentinel::check() && !Sentinel::inRole('administrator'))
-                            <li class="{{ Request::is('/') ? 'active' : '' }}"><a href="#">Profile</a></li>
                             <li class="{{ Request::is('/view') ? 'active' : '' }}"><a href="{{ route('view') }}">View Parking</a></li>
                             @endif
                             @if (Sentinel::check() && Sentinel::inRole('administrator'))
-                            <li class="{{ Request::is('/dashboard') ? 'active' : '' }}"><a href="{{ route('dashboard') }}">Dashboard</a></li>
                             <div class="dropdown nav-dropdown-link">
                                 <li class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     <a>Parking <span class="caret"></span></a>

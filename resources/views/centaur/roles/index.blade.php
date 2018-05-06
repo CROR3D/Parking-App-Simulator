@@ -5,7 +5,7 @@
 @section('content')
     <div class="page-header">
         <div class='btn-toolbar pull-right'>
-            <a class="btn btn-primary btn-lg" href="{{ route('roles.create') }}">
+            <a class="btn btn-primary btn-md" href="{{ route('roles.create') }}">
                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                 Create Role
             </a>

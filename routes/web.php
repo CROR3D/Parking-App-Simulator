@@ -35,10 +35,10 @@ Route::post('password/reset', 'Auth\PasswordController@postRequest')->name('auth
 Route::resource('users', 'UserController');
 
 // Navbar
-Route::get('view', ['as' => 'view', 'uses' => 'SelectController@select']);
+Route::get('view', ['as' => 'view', 'uses' => 'SelectController@select', 'middleware' => 'sentinel.auth']);
 Route::post('view', ['as' => 'view_form', 'uses' => 'SelectController@get_parking']);
 
-Route::get('view/{slug}', ['as' => 'parking_view', 'uses' => 'SelectController@view_parking']);
+Route::get('view/{slug}', ['as' => 'parking_view', 'uses' => 'SelectController@view_parking', 'middleware' => 'sentinel.auth']);
 Route::post('view/{slug}', ['as' => 'view_forms', 'uses' => 'ReservationsController@reservations']);
 
 Route::get('create', 'ParkingsController@create_form');
@@ -48,9 +48,9 @@ Route::post('create', ['as' => 'create', 'uses' => 'ParkingsController@create'])
 Route::resource('roles', 'RoleController');
 
 // Dashboard
-Route::get('dashboard', ['as' => 'dashboard', 'uses' => function() {
-    return view('centaur.dashboard');
-}]);
+Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@dashboard']);
+
+Route::get('profile', ['as' => 'profile', 'uses' => 'DashboardController@profile_setup', 'middleware' => 'sentinel.auth']);
 
 // Home
 Route::get('/', ['as' => 'index', 'uses' => 'SelectController@index']);
