@@ -42,6 +42,7 @@
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                         <li class="{{ Request::is('/view') ? 'active' : '' }}"><a href="{{ route('view') }}">View</a></li>
                                         <li class="{{ Request::is('/create*') ? 'active' : '' }}"><a href="{{ route('create') }}">Create</a></li>
+                                        <li class="{{ Request::is('/update*') ? 'active' : '' }}"><a href="{{ route('update') }}">Update</a></li>
                                      </ul>
                                 </li>
                             </div>

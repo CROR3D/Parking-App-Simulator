@@ -9,11 +9,16 @@ class Parking extends Model
 {
     use Sluggable;
 
-    protected $fillable = ['name', 'city', 'address', 'slug', 'spots', 'working_time', 'price_per_hour', 'price_of_reservation', 'price_of_reservation_penalty'];
+    protected $fillable = ['name', 'city', 'address', 'slug', 'spots', 'image', 'working_time', 'price_per_hour', 'price_of_reservation', 'price_of_reservation_penalty'];
 
     public function saveParking($parking)
 	{
 		return $this->create($parking);
+	}
+
+    public function updateParking($parking)
+	{
+		return $this->update($parking);
 	}
 
     /**

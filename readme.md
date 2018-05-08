@@ -62,7 +62,6 @@ Za potrebe testiranja ove aplikacije izradio sam simulator ulaska i izlaska vozi
 - Centaur Sentinel
 - Sluggable (za rute simulatora)
 - Mailtrap (za testiranje mailova)
-- logo u Adobe Illustratoru
 
 
 ## PROBLEMI I KODIRANJE
@@ -82,4 +81,8 @@ Za potrebe testiranja ove aplikacije izradio sam simulator ulaska i izlaska vozi
 
 ## NAPOMENA
 
-- U SentinelDatabaseSeeder.php datoteci sam izbrisao jednu liniju KODA (označeno komentarom u datoteci)
+- Koristite ParkingDatabaseSeeder.php (uključuje 1 administratora, 1 usera, 2 parkirališta) umjesto SentinelDatabaseSeeder.php
+
+## NADOGRADNJA APLIKACIJE
+
+- korištenje različitih valuta

@@ -28,23 +28,24 @@ class SelectController extends Controller
             $parking_values[$parking->slug] = $city_values[$parking->city];
         }
 
+        $view = [
+            'city_list' => $city_list,
+            'parking_list' => $parking_list,
+            'city_values' => $city_values,
+            'parking_values' => $parking_values
+        ];
+
         if(Route::current()->getName() == 'view') {
 
-            return view('centaur.parking.view')->with([
-                'city_list' => $city_list,
-                'parking_list' => $parking_list,
-                'city_values' => $city_values,
-                'parking_values' => $parking_values
-            ]);
+            return view('centaur.parking.view')->with($view);
 
         } elseif(Route::current()->getName() == 'simulator') {
 
-            return view('simulator.select')->with([
-                'city_list' => $city_list,
-                'parking_list' => $parking_list,
-                'city_values' => $city_values,
-                'parking_values' => $parking_values
-            ]);
+            return view('simulator.select')->with($view);
+
+        } elseif(Route::current()->getName() == 'update') {
+
+            return view('centaur.parking.update_select')->with($view);
         }
     }
 
@@ -73,6 +74,10 @@ class SelectController extends Controller
             } elseif(Route::current()->getName() == 'post_simulator') {
 
                 return redirect()->route('parking_select', ['slug' => $slug]);
+
+            } elseif(Route::current()->getName() == 'update_select') {
+
+                return redirect()->route('update_view', ['slug' => $slug]);
             }
 
         } else {
@@ -86,7 +91,11 @@ class SelectController extends Controller
             } elseif(Route::current()->getName() == 'post_simulator') {
 
                 return redirect()->route('simulator');
-            }
+
+            } elseif(Route::current()->getName() == 'update_form') {
+
+               return redirect()->route('update');
+           }
         }
     }
 
@@ -163,31 +172,24 @@ class SelectController extends Controller
             $ticket['refund'] = session('refund');
         }
 
+        $parking_view = [
+            'parking' => $parking,
+            'status' => $status,
+            'reservation' => $reservation,
+            'has_reservation' => $has_reservation,
+            'count' => $count,
+            'ticket' => $ticket,
+            'ticket_check' => $ticket_check,
+            'exit_ticket_check' => $exit_ticket_check
+        ];
+
         if(Route::current()->getName() == 'parking_view') {
 
-            return view('centaur.parking.parking')->with([
-                'parking' => $parking,
-                'status' => $status,
-                'reservation' => $reservation,
-                'has_reservation' => $has_reservation,
-                'count' => $count,
-                'ticket' => $ticket,
-                'ticket_check' => $ticket_check,
-                'exit_ticket_check' => $exit_ticket_check
-            ]);
+            return view('centaur.parking.parking')->with($parking_view);
 
         } elseif (Route::current()->getName() == 'parking_select') {
 
-            return view('simulator.parking')->with([
-                'parking' => $parking,
-                'status' => $status,
-                'reservation' => $reservation,
-                'has_reservation' => $has_reservation,
-                'count' => $count,
-                'ticket' => $ticket,
-                'ticket_check' => $ticket_check,
-                'exit_ticket_check' => $exit_ticket_check
-            ]);
+            return view('simulator.parking')->with($parking_view);
 
         }
     }

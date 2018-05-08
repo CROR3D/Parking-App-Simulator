@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Parking;
 
-class SentinelDatabaseSeeder extends Seeder
+class ParkingDatabaseSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -24,6 +25,32 @@ class SentinelDatabaseSeeder extends Seeder
             'password' => 'password',
             'username' => 'jimmy'
         ));
+
+        $parking = Parking::create([
+            'name' => 'Foša',
+            'city' => 'Zadar',
+            'address' => 'Ulica kralja Dmitra Zvonimira 2',
+            'slug' => 'zadar-fosa',
+            'spots' => '50',
+            'image' => 'images/parking/zadar-fosa.jpg',
+            'working_time' => '08:00-16:00',
+            'price_per_hour' => '4.00',
+            'price_of_reservation' => '2.00',
+            'price_of_reservation_penalty' => '5.00'
+        ]);
+
+        $parking2 = Parking::create([
+            'name' => 'Bačvice',
+            'city' => 'Split',
+            'address' => 'Preradovićevo šetalište',
+            'slug' => 'split-bacvice',
+            'spots' => '35',
+            'image' => 'images/parking/split-bacvice.jpg',
+            'working_time' => '07:00-17:30',
+            'price_per_hour' => '6.00',
+            'price_of_reservation' => '4.00',
+            'price_of_reservation_penalty' => '8.00'
+        ]);
 
         // Create Activations
         DB::table('activations')->truncate();

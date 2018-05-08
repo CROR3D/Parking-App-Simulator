@@ -19,6 +19,7 @@ class CreateParkingsTable extends Migration
             $table->string('city');
             $table->string('address');
             $table->string('slug');
+            $table->string('image');
             $table->integer('spots')->unsigned();
             $table->unsignedDecimal('price_per_hour', 8, 2);
             $table->unsignedDecimal('price_of_reservation', 8, 2);

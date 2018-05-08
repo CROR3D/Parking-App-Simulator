@@ -44,6 +44,12 @@ Route::post('view/{slug}', ['as' => 'view_forms', 'uses' => 'ReservationsControl
 Route::get('create', 'ParkingsController@create_form');
 Route::post('create', ['as' => 'create', 'uses' => 'ParkingsController@create']);
 
+Route::get('update', ['as' => 'update', 'uses' => 'SelectController@select', 'middleware' => 'sentinel.auth']);
+Route::post('update', ['as' => 'update_select', 'uses' => 'ParkingsController@update_view']);
+
+Route::get('update/{slug}', ['as' => 'update_fill', 'uses' => 'ParkingsController@update_parking', 'middleware' => 'sentinel.auth']);
+Route::post('update/{slug}', ['as' => 'update_form', 'uses' => 'ParkingsController@update_form']);
+
 // Roles
 Route::resource('roles', 'RoleController');
 

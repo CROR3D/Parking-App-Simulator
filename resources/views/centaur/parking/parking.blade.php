@@ -18,7 +18,7 @@
         </div>
 
         <div class="parking_map">
-            <img class="img-responsive" src="{{ URL::asset('images/zagreb-centar-2.jpg') }}" />
+            <img class="img-responsive" src="{{ URL::asset($parking->image) }}" />
         </div>
 
         <div class="text-center spacing">
