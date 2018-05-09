@@ -80,6 +80,11 @@ th, td {
     padding: 30px;
 }
 
+.service .panel {
+    border-width: 2px;
+    border-color: #75BDF7;
+}
+
 .numpad {
     float: left;
     padding: 30px 15px 0 15px;
@@ -94,7 +99,7 @@ th, td {
     width: 40%;
 }
 
-#screen, #ticket-screen, #insert_ticket, #insert_coins, #coin_refund {
+#screen, #ticket-screen, #insert_ticket, #insert_coins, #coin_refund, #exit_insert_ticket {
   text-align: center;
   height: 35px;
   line-height: 35px;
@@ -109,7 +114,7 @@ th, td {
     font-size: 25px;
 }
 
-#insert_ticket, #insert_coins, #coin_refund {
+#insert_ticket, #insert_coins, #coin_refund, #exit_insert_ticket {
     width: 50%;
     margin: 50px 0 15px 0;
 }
@@ -131,7 +136,8 @@ th, td {
     margin: 25px auto;
     width: 50%;
     padding: 30px;
-    border-width: 3px;
+    border-width: 2px;
+    border-color: #75BDF7;
 }
 
 .payment-device .row{
@@ -156,6 +162,10 @@ th, td {
     width: 100%;
     margin: 20px 0 50px 0;
     padding: 20px 0;
+}
+
+.button-area button {
+    margin: 0;
 }
 
 .helper {

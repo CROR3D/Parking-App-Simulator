@@ -39,38 +39,50 @@
                         @if($status['entrance'] <= 2)
                             <div class="helper">
                                 <p>Access parking lot without getting a new ticket</p>
-                                <button class="btn btn-md btn-info" name="already_got_ticket" type="submit" {{ ($status['entrance'] == 2) ? 'disabled' : ''}}>Already Got Ticket</button>
+                                <button class="btn btn-md btn-success" name="already_got_ticket" type="submit" {{ ($status['entrance'] == 2) ? 'disabled' : ''}}>Already Got Ticket</button>
                             </div>
                             <div class="helper">
                                 <p>Access parking lot with vehicle</p>
-                                <button class="btn btn-md btn-success" name="green" type="submit" {{ ($status['entrance'] < 2) ? 'disabled' : ''}}>Enter Parking</button>
+                                <button class="btn btn-md btn-info" name="green" type="submit" {{ ($status['entrance'] < 2) ? 'disabled' : ''}}>Enter Parking</button>
                             </div>
                         @elseif($status['entrance'] == 3)
                             <div class="helper">
                                 <p>Pay the ticket</p>
-                                <button class="btn btn-info btn-md" name="payment" type="submit">Payment device</button>
+                                <button class="btn btn-success btn-md" name="payment" type="submit">Payment device</button>
                             </div>
                             <div class="helper">
-                                <p>Leave parking lot</p>
-                                <button class="btn btn-success btn-md" name="go_to_exit" type="submit">Go towards exit</button>
+                                <p>Drive to exit barrier</p>
+                                <button class="btn btn-info btn-md" name="go_to_exit" type="submit">Go towards exit</button>
                             </div>
                         @elseif($status['entrance'] == 4)
                             <div class="helper">
                                 <p>Go back to the parking area</p>
-                                <button class="btn btn-info btn-md" name="back_to_parking" type="submit">Parking area</button>
+                                <button class="btn btn-success btn-md" name="back_to_parking" type="submit">Parking area</button>
                             </div>
                             <div class="helper">
-                                <p>Leave parking lot</p>
-                                <button class="btn btn-success btn-md" name="go_to_exit" type="submit">Go towards exit</button>
+                                <p>Drive to exit barrier</p>
+                                <button class="btn btn-info btn-md" name="go_to_exit" type="submit">Go towards exit</button>
                             </div>
                         @elseif($status['entrance'] == 5)
                             <div class="helper">
                                 <p>Go back to the parking area</p>
-                                <button class="btn btn-info btn-md" name="back_to_parking" type="submit">Parking area</button>
+                                <button class="btn btn-success btn-md" name="back_to_parking" type="submit" {{ ($status['exit']) ? 'disabled' : ''}}>Parking area</button>
                             </div>
                             <div class="helper">
                                 <p>Pay the ticket</p>
-                                <button class="btn btn-info btn-md" name="payment" type="submit">Payment device</button>
+                                <button class="btn btn-success btn-md" name="payment" type="submit" {{ ($status['exit']) ? 'disabled' : ''}}>Payment device</button>
+                            </div>
+                        @endif
+                        @if($status['entrance'] > 2)
+                        <div class="helper">
+                            <p>Walk out of the parking lot</p>
+                            <button class="btn btn-md btn-success btn-ticket" name="walk_out" type="submit" {{ ($status['exit']) ? 'disabled' : ''}}>Walk Out</button>
+                        </div>
+                        @endif
+                        @if($status['exit'])
+                            <div class="helper">
+                                <p>Drive out</p>
+                                <button class="btn btn-info btn-md" name="exit_success" type="submit">Exit Parking</button>
                             </div>
                         @endif
                     </div>
@@ -78,7 +90,7 @@
         @if($status['entrance'] < 3)
                     <div class="panel panel-default service">
                         <h3 class="text-center spacing-btm">Entrance service</h3>
-                        <div class="panel-body">
+                        <div class="panel-body entrance_service">
                             <div class="panel panel-default numpad">
                                 @include('simulator.sub-views.numpad')
                             </div>
@@ -97,7 +109,7 @@
                         <h3 class="text-center spacing-btm">Parking lot view</h3>
                         <div class="panel-body">
                             <div class="parking_map">
-                                <img class="img-responsive" src="{{ URL::asset('images/zagreb-centar-2.jpg') }}" />
+                                <img class="img-responsive" src="{{ URL::asset($parking->image) }}" />
                             </div>
 
                             <div class="text-center spacing">
@@ -142,6 +154,21 @@
                                     <div class="row">
                                         <input id="coin_refund" type="text" name="coin_refund" placeholder="Coin refund" value="{{ ($ticket['refund'] == 0) ? '' : $ticket['refund'] }}" readonly/>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+        @elseif($status['entrance'] == 5)
+                    <div class="panel panel-default service">
+                        <h3 class="text-center spacing-btm">Exit service</h3>
+                        <div class="panel-body">
+                            <div class="payment-device">
+                                <div class="panel panel-primary">
+                                    <div class="row">
+                                        <input id="exit_insert_ticket" type="text" name="exit_insert_ticket" placeholder="Insert ticket" value="{{ ($exit_ticket_check) ? $exit_ticket_check : '' }}" {{ ($exit_ticket_check) ? 'readonly' : '' }}/>
+                                    </div>
+                                    <button class="btn btn-primary btn-md" name="exit_submit_ticket" type="submit">Accept ticket</button>
                                 </div>
                             </div>
                         </div>
