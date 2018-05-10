@@ -72,12 +72,14 @@
             </div>
         </div>
     @elseif(Sentinel::check())
-        @if($admin_msg)
-            <div class="jumbotron">
-                <h3 class="text-danger">Administrator Message</h3>
+        <div class="jumbotron">
+            <h3 class="text-danger">Administrator Message</h3>
+            @if($admin_msg)
                 <h4>Parking lot 'Foša' in Zadar will be closed 01.06.2018!</h4>
-            </div>
-        @endif
+            @else
+                <h4>There is no messages.</h4>
+            @endif
+        </div>
         <div class="row dashboard">
             <div class="page-header">
                 <div class='btn-toolbar pull-right'>
@@ -89,7 +91,7 @@
                 <h1>Dashboard</h1>
             </div>
             <div class="row dashboard">
-                <h3>Available funds: </h3>
+                <h3>Available funds: {{ $data['account']['funds'] }} kn</h3>
                 <h3>Reservations</h3>
                 <h4>Last reservation: </h4>
                 <h4>Total reservations: </h4>
@@ -100,7 +102,7 @@
         <div class="jumbotron">
             <h1>Welcome, Guest!</h1>
             <p>You must login to continue.</p>
-            <p><a class="btn btn-primary btn-lg" href="" role="button">Log In</a></p>
+            <p><a class="btn btn-primary btn-lg" href="{{ route('auth.login.form') }}" role="button">Log In</a></p>
         </div>
     @endif
 </div>

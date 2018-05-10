@@ -17,6 +17,7 @@ class CreateReservationsTable extends Migration
             $table->integer('user_id')->unsigned()->nullable()->index();
             $table->integer('parking_id')->unsigned()->nullable()->index();
             $table->integer('code')->index();
+            $table->dateTime('cancellation')->nullable();
             $table->dateTime('expire_time')->nullable();
             $table->timestamps();
 

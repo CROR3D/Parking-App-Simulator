@@ -90,9 +90,9 @@ KORISNIK može:
 
 - Koristite ParkingDatabaseSeeder.php (uključuje 1 administratora, 1 usera, 2 parkirališta) umjesto SentinelDatabaseSeeder.php
 
-## NADOGRADNJA APLIKACIJE (stvari koje bi trebalo popraviti po mome mišljenju)
+## NADOGRADNJA APLIKACIJE (stvari koje bi trebalo popraviti)
 
-- za korištenje kartica je zasad izrađen samo 'dummy' tekst
+- za korištenje kartica je zasad izrađen samo 'dummy' servis (nema sigurnosnih mjera niti veze s bankovnim računima)
 - potrebno dodatno uređenje koda i provjere sigurnosti
 - potrebno bolje uređenje baze podataka
 - promjeniti dodjeljivanje uloga korisnicima (trenutno je Centaur default)

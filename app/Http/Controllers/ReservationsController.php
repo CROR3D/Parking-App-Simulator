@@ -47,6 +47,7 @@ class ReservationsController extends Controller
                         'user_id' => Sentinel::getUser()->id,
                         'parking_id' => $parking->id,
                         'code' => sprintf('%04d', rand(0000, 9999)),
+                        'cancellation' => Carbon::now()->addMinute(10),
                         'expire_time' => Carbon::now()->addMinute(30)
                     );
 
@@ -77,6 +78,14 @@ class ReservationsController extends Controller
             break;
 
             case(isset($_POST['reservation_true'])):
+
+                $cancellation = Reservation::where('user_id', Sentinel::getUser()->id)->first()->cancellation;
+
+                if(Carbon::now() > $cancellation) {
+                    
+                } else {
+
+                }
 
                 Reservation::where('user_id', Sentinel::getUser()->id)->delete();
 

@@ -17,13 +17,15 @@ class ParkingDatabaseSeeder extends Seeder
         $admin = Sentinel::getUserRepository()->create(array(
             'email'    => 'admin@admin.com',
             'password' => 'password',
-            'username' => 'adminator'
+            'username' => 'adminator',
+            'credit_card' => 372805206299580
         ));
 
         $user = Sentinel::getUserRepository()->create(array(
             'email'    => 'user@user.com',
             'password' => 'password',
-            'username' => 'jimmy'
+            'username' => 'jimmy',
+            'credit_card' => 379748002633433
         ));
 
         $parking = Parking::create([

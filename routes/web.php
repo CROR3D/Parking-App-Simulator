@@ -60,6 +60,7 @@ Route::resource('roles', 'RoleController');
 Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@dashboard']);
 
 Route::get('profile', ['as' => 'profile', 'uses' => 'DashboardController@profile_setup', 'middleware' => 'sentinel.auth']);
+Route::post('profile', ['as' => 'profile_form', 'uses' => 'DashboardController@profile_form']);
 
 // Home
 Route::get('/', ['as' => 'index', 'uses' => 'SelectController@index']);
