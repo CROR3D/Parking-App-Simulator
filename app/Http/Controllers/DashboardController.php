@@ -13,7 +13,13 @@ class DashboardController extends Controller
 {
     public function profile_setup()
     {
+        $user_data = [
+            'id' => Sentinel::getUser()->id,
+            'email' => Sentinel::getUser()->email,
+            'username' => Sentinel::getUser()->username
+        ];
 
+        return view('centaur.profile')->with('user_data', $user_data);
     }
 
     public function dashboard()
@@ -36,6 +42,8 @@ class DashboardController extends Controller
             ]
         ];
 
-        return view('centaur.dashboard')->with('data', $data);
+        $admin_msg = true;
+
+        return view('centaur.dashboard')->with(['data' => $data, 'admin_msg' => $admin_msg]);
     }
 }

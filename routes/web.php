@@ -50,6 +50,9 @@ Route::post('update', ['as' => 'update_select', 'uses' => 'ParkingsController@up
 Route::get('update/{slug}', ['as' => 'update_fill', 'uses' => 'ParkingsController@update_parking', 'middleware' => 'sentinel.auth']);
 Route::post('update/{slug}', ['as' => 'update_form', 'uses' => 'ParkingsController@update_form']);
 
+Route::get('update/city/{city}', ['as' => 'update_city', 'uses' => 'ParkingsController@update_city', 'middleware' => 'sentinel.auth']);
+Route::post('update/city/{city}', ['as' => 'update_city_form', 'uses' => 'ParkingsController@update_city_form']);
+
 // Roles
 Route::resource('roles', 'RoleController');
 

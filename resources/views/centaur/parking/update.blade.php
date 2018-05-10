@@ -35,7 +35,7 @@
                   <div class="form-group">
                     Image path:
                     <div class="number-box">
-                        <input type="text" class="form-control" name="image" placeholder="images/parking/" value="{{ $parking->image }}" />
+                        <input type="text" class="form-control" name="image" placeholder="images/parking/" value="{{ $path[1] }}" />
                         {!! ($errors->has('image')) ? $errors->first('image', '<p class="text-danger">:message</p>') : '' !!}
                     </div>
                   </div>

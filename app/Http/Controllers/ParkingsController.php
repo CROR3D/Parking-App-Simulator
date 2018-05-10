@@ -44,22 +44,58 @@ class ParkingsController extends Controller
 
     public function update_view()
     {
-        $slug = $_POST['select'];
+        if(isset($_POST['select'])) {
 
-        if($slug) {
+            $slug = $_POST['select'];
 
-            $parking = Parking::where('slug', $slug)->first();
+            if($slug) {
 
-            return redirect()->route('update_fill', ['slug' => $slug]);
+                $parking = Parking::where('slug', $slug)->first();
 
+                return redirect()->route('update_fill', ['slug' => $slug]);
 
-        } else {
+            }
 
-            session()->flash('info', 'Please select parking lot you want to update.');
+        } elseif(isset($_POST['select_all'])) {
 
-            return redirect()->route('update');
+            $city = $_POST['select_all'];
 
+            if($city) {
+
+                $parking = Parking::where('city', $city)->get();
+
+                $city = strtolower($city);
+
+                return redirect()->route('update_city', ['$city' => $city]);
+            }
         }
+
+        session()->flash('info', 'Please select parking lot or city you want to update.');
+
+        return redirect()->route('update');
+
+    }
+
+    public function update_city($city)
+    {
+        return view('centaur.parking.update_city')->with('city', $city);
+    }
+
+    public function update_city_form($city)
+    {
+        $parking_list = Parking::where('city', $city)->get();
+
+        foreach ($parking_list as $parking){
+            $parking->updateParking([
+                'working_time' => '08:00-16:00',
+                'price_per_hour' => '2.00'
+            ]);
+
+            $parking->save();
+        }
+
+        session()->flash('info', 'Parking lots in ' . $city . ' are updated!');
+        return redirect()->route('dashboard');
     }
 
     public function update_parking($slug)
@@ -98,12 +134,15 @@ class ParkingsController extends Controller
             'two' => $sixth_split[1]
         ];
 
+        $path = explode('images/parking/', $parking->image);
+
         return view('centaur.parking.update')->with([
             'parking' => $parking,
             'working_time' => $working_time,
             'price_per_hour' => $price_per_hour,
             'price_of_reservation' => $price_of_reservation,
-            'price_of_reservation_penalty' => $price_of_reservation_penalty
+            'price_of_reservation_penalty' => $price_of_reservation_penalty,
+            'path' => $path
         ]);
     }
 

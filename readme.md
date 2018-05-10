@@ -29,30 +29,15 @@ PARKING SIMULATOR
 
 Za potrebe testiranja ove aplikacije izradio sam simulator ulaska i izlaska vozila (i osoba) iz parkirališta
 
-    VOZILA
-        Rad u simulatoru koji se odnosi na ulaz i izlaz vozila (ulaz i izlaz, validacija KODA za ulaz, validacija karte za izlaz) je označen PLAVOM bojom
-    OSOBE
-        Rad u simulatoru koji se odnosi na kretanje osoba na parkiralištu (ulaz, plaćanje karte) je označen ZELENOM bojom
-
     RAD U SIMULATORU
-        Na odabir parkirališta (grad, naziv) ulazimo u simulaciju tog odabranog parkirališta.
-        Simulator ima 4 sekcije koje nam govore gdje se trenutačno nalazimo i korisnik se može kretati od jedne do druge ovisno o potrebi i situaciji:
-        - ULAZNA RAMPA
-        - PARKING
-        - UREĐAJ ZA PLAĆANJE
-        - IZLAZNA RAMPA
-
-        Ako smo na ULAZNOJ RAMPI uzeli kartu i ušli u parkiralište rampa se nakon našeg ulaza zatvara (što znači da toj sekciji više ne možemo pristupiti s našim vozilom). Sekcija PARKING nam omogućava
-        da vidimo stanje na parkiralištu 'golim okom' (ukupan broj mjesta, broj zauzetih mjesta, podatci o parkingu). Ako nakon nekog vremena odlučimo napustiti parkiralište s našim vozilom moramo otići
-        na sekciju UREĐAJA ZA PLAĆANJE. Tamo plaćamo kartu i upućujemo se na sekciju IZLAZNE RAMPE gdje validiramo je li karta plaćena ili ne. Ako je plaćena možemo napustiti parkiralište a ako nije
-        onda se moramo vratiti na sekciju UREĐAJA ZA PLAĆANJE i platiti kartu te pokušati ponovo izaći.
+        Pogledajte HELP kad uđete u simulator.
 
     OGRANIČENJA I KAZNE
         Ukoliko je osoba platila kartu ali se odlučila još zadržati na parkingu s vozilom (recimo da je netko platio kartu ali je otišao šetati po gradu jos 2 sata) na validaciji na IZLAZNOJ RAMPI
         validator će vidjeti da je prošlo više od 10 minuta koje osoba ima da napusti parking te će resetirati vrijeme karte na prošlo vrijeme plaćanje te će osoba trebati ponovo platiti kartu.
 
     KARTE I PLAĆANJA
-        Napominjem da je ovo samo simulacija ... KARTU odnosno njeno fizičko postojanje zamjenjuje KOD od velikog niza znamenki (koji možete kopirati sa strane ili pogledati u bazu da ne zaboravite).
+        Kartu odnosno njeno fizičko postojanje zamjenjuje KOD od velikog niza znamenki (koji možete kopirati sa strane ili pogledati u bazu da ne zaboravite).
         Novac zamjenjuje jednostavan upis brojeva (ako upišete broj 7 znači da ste ubacili 7 kn).
 
 
@@ -60,8 +45,30 @@ Za potrebe testiranja ove aplikacije izradio sam simulator ulaska i izlaska vozi
 
 - Laravel
 - Centaur Sentinel
-- Sluggable (za rute simulatora)
-- Mailtrap (za testiranje mailova)
+- Sluggable
+- Mailtrap
+
+## ULOGE
+
+ADMINISTRATOR može:
+
+    - povezivati parkirališta s aplikacijom (create)
+    - ažurirati postojeća parkirališta (mijenjati cijene, radno vrijeme, ...)
+    - odobravati dnevne popuste
+    - slati obavijesti korisnicima (u slučaju radova, skraćenog radnog vremena, popusta, ...)
+    - stvarati korisnike i dodjeljivati uloge
+    - pretraživati parkirališta
+    - pratiti opće podatke o aplikaciji
+    - pratiti prijavljene probleme
+
+KORISNIK može:
+
+    - pretraživati parkirališta
+    - rezervirati mjesta
+    - plaćati preko računa
+    - koristiti dodatne pogodnosti (popusti ...)
+    - pratiti obavjesti
+    - prijaviti problem
 
 
 ## PROBLEMI I KODIRANJE
@@ -83,6 +90,10 @@ Za potrebe testiranja ove aplikacije izradio sam simulator ulaska i izlaska vozi
 
 - Koristite ParkingDatabaseSeeder.php (uključuje 1 administratora, 1 usera, 2 parkirališta) umjesto SentinelDatabaseSeeder.php
 
-## NADOGRADNJA APLIKACIJE
+## NADOGRADNJA APLIKACIJE (stvari koje bi trebalo popraviti po mome mišljenju)
 
+- za korištenje kartica je zasad izrađen samo 'dummy' tekst
+- potrebno dodatno uređenje koda i provjere sigurnosti
+- potrebno bolje uređenje baze podataka
+- promjeniti dodjeljivanje uloga korisnicima (trenutno je Centaur default)
 - korištenje različitih valuta

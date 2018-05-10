@@ -82,7 +82,7 @@ th, td {
 
 .service .panel {
     border-width: 2px;
-    border-color: #75BDF7;
+    border-color: lightgrey;
 }
 
 .numpad {
@@ -97,6 +97,26 @@ th, td {
     padding: 30px 15px 0 15px;
     margin: 0 7.5% 0 2.5%;
     width: 40%;
+}
+
+.profile-row {
+    margin: 20px 0;
+}
+
+.profile-section .profile-row{
+    margin-left: 30px;
+}
+
+.profile-row h4, .profile-row input, .profile-row button {
+    display: inline-block;
+}
+
+.profile-row input {
+    padding-left: 15px;
+}
+
+.profile-row button {
+    margin-top: 35px;
 }
 
 #screen, #ticket-screen, #insert_ticket, #insert_coins, #coin_refund, #exit_insert_ticket {
@@ -137,7 +157,7 @@ th, td {
     width: 50%;
     padding: 30px;
     border-width: 2px;
-    border-color: #75BDF7;
+    border-color: lightgrey;
 }
 
 .payment-device .row{

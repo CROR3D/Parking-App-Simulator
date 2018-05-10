@@ -72,15 +72,28 @@
             </div>
         </div>
     @elseif(Sentinel::check())
+        @if($admin_msg)
+            <div class="jumbotron">
+                <h3 class="text-danger">Administrator Message</h3>
+                <h4>Parking lot 'Foša' in Zadar will be closed 01.06.2018!</h4>
+            </div>
+        @endif
         <div class="row dashboard">
             <div class="page-header">
                 <div class='btn-toolbar pull-right'>
-                    <a class="btn btn-primary btn-md" href="">
+                    <a class="btn btn-primary btn-md" href="{{ route('profile') }}">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                         Profile setup
                     </a>
                 </div>
                 <h1>Dashboard</h1>
+            </div>
+            <div class="row dashboard">
+                <h3>Available funds: </h3>
+                <h3>Reservations</h3>
+                <h4>Last reservation: </h4>
+                <h4>Total reservations: </h4>
+                <h4>Most visited parking lot: </h4>
             </div>
         </div>
     @else

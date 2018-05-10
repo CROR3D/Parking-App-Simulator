@@ -60,7 +60,7 @@
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
                             @if (Sentinel::check())
-                                <li><p class="navbar-text">{{ Sentinel::getUser()->email }}</p></li>
+                                <li><p class="navbar-text">{{ (Sentinel::getUser()->username) ? Sentinel::getUser()->username : Sentinel::getUser()->email }}</p></li>
                                 <li><a href="{{ route('auth.logout') }}">Log Out</a></li>
                             @else
                                 <li><a href="{{ route('auth.login.form') }}">Login</a></li>
