@@ -24,6 +24,7 @@ class StoreProfileData extends FormRequest
     public function rules()
     {
         return [
+            'email' => 'required',
             'account' => 'nullable|numeric'
         ];
     }

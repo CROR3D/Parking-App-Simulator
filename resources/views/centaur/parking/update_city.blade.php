@@ -14,36 +14,18 @@
             <h3 class="panel-title">Update {{ ucfirst($city) }} Parking Lot Information</h3>
           </div>
           <div class="panel-body">
-            <form accept-charset="UTF-8" role="form" method="post" action="">
+            <form accept-charset="UTF-8" role="form" method="post" action="{{ route('update_city_form', ['city' => $city]) }}">
                 <fieldset>
                     <label class="text-info">Set time (default)</label>
                      <div class="form-group">
+                         <label for="select3">Change working time</label>
                          <div class="form-group text-left">
-                             <label for="select3">Change working time</label>
-                                 <select id="selectTime" class="form-control" name="">
-                                    <option class="dropdown-item" value="starting_time">Change starting time</option>
-                                    <option class="dropdown-item" value="closing_time">Change closing time</option>
-                                    <option class="dropdown-item" value="working_time">Change working time</option>
-                                 </select>
-                         </div>
-                         <div class="form-group text-left">
-                             <div id="starting_time" class="box">
-                                 <input type="checkbox" name="add_starting_time" value=""> Add time <input type="checkbox" name="subtract_starting_time" value=""> Subtract time<br>
-                                 <div class="number-box">
-                                     <input type="text" class="form-control time" name="" value="" /> : <input type="text" class="form-control time" name="" value="" /> h
-                                </div>
-                             </div>
-                             <div id="closing_time" class="box">
-                                 <input type="checkbox" name="add_closing_time" value=""> Add time <input type="checkbox" name="subtract_closing_time" value=""> Subtract time<br>
-                                 <div class="number-box">
-                                     <input type="text" class="form-control time" name="" value="" /> : <input type="text" class="form-control time" name="" value="" /> h
-                                </div>
-                             </div>
                              <div id="working_time" class="box">
+                                 <input class="checkbox-group" type="checkbox" name="add_time" value=""> Add time <input class="checkbox-group" type="checkbox" name="subtract_time" value=""> Subtract time<br>
                                  <div class="number-box">
-                                     <input type="text" class="form-control time" name="" value="" /> : <input type="text" class="form-control time" name="" value="" />
+                                     <input type="text" class="form-control time" name="start_hour" value="" /> : <input type="text" class="form-control time" name="start_minute" value="" />
                                       h -
-                                     <input type="text" class="form-control time" name="" value="" /> : <input type="text" class="form-control time" name="" value="" /> h
+                                     <input type="text" class="form-control time" name="close_hour" value="" /> : <input type="text" class="form-control time" name="close_minute" value="" /> h
                                 </div>
                              </div>
                          </div>
@@ -55,10 +37,10 @@
                          <div class="form-group text-left">
                              <label for="select3">Change price per hour</label>
                              <div class="form-group">
-                                 <input type="checkbox" name="add_price_per_hour" value=""> Increase prices per hour<br>
+                                 <input type="checkbox" name="add_price" value=""> Increase prices per hour<br>
                              </div>
                              <div class="number-box">
-                                 <input type="text" class="form-control prices" name="" maxlength="2" value="" /> : <input type="text" class="form-control prices"  name="" maxlength="2" value=""/> kn
+                                 <input type="text" class="form-control prices" name="price_one" maxlength="2" value="" /> : <input type="text" class="form-control prices"  name="price_two" maxlength="2" value=""/> kn
                              </div>
                          </div>
                      </div>
@@ -70,7 +52,7 @@
                                  <input type="checkbox" name="add_reservation" value=""> Increase reservation prices<br>
                              </div>
                              <div class="number-box">
-                                 <input type="text" class="form-control prices" name="" maxlength="2" value="" /> : <input type="text" class="form-control prices"  name="" maxlength="2" value=""/> kn
+                                 <input type="text" class="form-control prices" name="reservation_one" maxlength="2" value="" /> : <input type="text" class="form-control prices"  name="reservation_two" maxlength="2" value=""/> kn
                              </div>
                          </div>
                      </div>
@@ -82,7 +64,7 @@
                                  <input type="checkbox" name="add_penalty" value=""> Increase penalty prices<br>
                              </div>
                              <div class="number-box">
-                                 <input type="text" class="form-control prices" name="" maxlength="2" value="" /> : <input type="text" class="form-control prices"  name="" maxlength="2" value=""/> kn
+                                 <input type="text" class="form-control prices" name="penalty_one" maxlength="2" value="" /> : <input type="text" class="form-control prices"  name="penalty_two" maxlength="2" value=""/> kn
                              </div>
                          </div>
                      </div>
