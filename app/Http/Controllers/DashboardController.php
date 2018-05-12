@@ -15,26 +15,28 @@ class DashboardController extends Controller
 {
     public function profile_setup()
     {
-        $user_data = [
+        $data = [
             'id' => Sentinel::getUser()->id,
             'email' => Sentinel::getUser()->email,
             'username' => Sentinel::getUser()->username,
-            'credit_card' => Sentinel::getUser()->credit_card
+            'credit_card' => Sentinel::getUser()->credit_card,
+            'account' => Sentinel::getUser()->account
         ];
 
-        return view('centaur.profile')->with('user_data', $user_data);
+        return view('centaur.profile')->with('data', $data);
     }
 
     public function profile_form(StoreProfileData $request)
     {
         $user_id = Sentinel::getUser()->id;
+        $account = Sentinel::getUser()->account;
         $user = User::findOrFail($user_id);
 
         $profile = [
             'username' => $request->get('username'),
             'email' => $request->get('email'),
             'credit_card' => $request->get('credit_card'),
-            'account' => $request->get('account')
+            'account' => $account + $request->get('account')
         ];
 
         $user->updateUser($profile);
@@ -53,8 +55,10 @@ class DashboardController extends Controller
         $data = null;
 
         if(Sentinel::check()) {
+
             $user_id = Sentinel::getUser()->id;
-            $funds = User::find($user_id)->account;
+            $account = User::find($user_id)->account;
+            $credit_card = User::find($user_id)->credit_card;
 
             $data = [
                 'cities' => [
@@ -69,9 +73,8 @@ class DashboardController extends Controller
                     'user_id' => $user_id,
                     'number' => Ticket::where('user_id', '<>', null)->count()
                 ],
-                'account' => [
-                    'funds' => $funds
-                ]
+                'account' => $account,
+                'credit_card' => $credit_card
             ];
         }
 

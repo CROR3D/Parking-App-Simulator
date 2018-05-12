@@ -42,7 +42,7 @@
                                 <button class="btn btn-md btn-success" name="already_got_ticket" type="submit" {{ ($status['entrance'] == 2) ? 'disabled' : ''}}>Already Got Ticket</button>
                             </div>
                             <div class="helper">
-                                <p>Access parking lot with vehicle</p>
+                                <p>Access parking lot with the vehicle</p>
                                 <button class="btn btn-md btn-info" name="green" type="submit" {{ ($status['entrance'] < 2) ? 'disabled' : ''}}>Enter Parking</button>
                             </div>
                         @elseif($status['entrance'] == 3)

@@ -12,11 +12,11 @@
         <form accept-charset="UTF-8" role="form" method="post" action="{{ route('profile_form') }}">
         {{ csrf_field() }}
             <div class="profile-row">
-                <h4>Username: </h4> <input type="text" name="username" value="{{ ($user_data['username']) ? $user_data['username'] : '' }}"/>
+                <h4>Username: </h4> <input type="text" name="username" value="{{ ($data['username']) ? $data['username'] : '' }}"/>
             </div>
 
             <div class="profile-row">
-                <h4>Email: </h4> <input type="text" name="email" value="{{ $user_data['email'] }}"/>
+                <h4>Email: </h4> <input type="text" name="email" value="{{ $data['email'] }}"/>
             </div>
 
             <div class="profile-section">
@@ -37,11 +37,11 @@
             <div class="profile-section">
                 <h4>Credit card information</h4>
                 <div class="profile-row">
-                    <h4>Credit card number: </h4> <input type="text" name="credit_card" value="{{ $user_data['credit_card'] }}"/>
+                    <h4>Credit card number: </h4> <input type="text" name="credit_card" value="{{ $data['credit_card'] }}"/>
                 </div>
 
                 <div class="profile-row">
-                @if($user_data['credit_card'])
+                @if($data['credit_card'])
                     <h4>Pull from card: </h4> <input type="number" name="account" min="0"/> kn
                     {!! ($errors->has('account')) ? $errors->first('account', '<p class="text-danger">:message</p>') : '' !!}
                 @endif

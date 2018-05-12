@@ -101,6 +101,8 @@ th, td {
 
 .profile-row {
     margin: 20px 0;
+    width: 100%;
+    float: left;
 }
 
 .profile-section .profile-row{
@@ -237,6 +239,14 @@ th, td {
 
     .helper {
         width: 100%;
+    }
+
+    .profile-row h3, .profile-row h4{
+        width: 100%;
+    }
+
+    .profile-row button {
+        float: left;
     }
 
     #insert_ticket, #insert_coins, #coin_refund {

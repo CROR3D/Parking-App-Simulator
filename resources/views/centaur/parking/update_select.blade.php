@@ -22,23 +22,6 @@
                     </button>
             </div>
         </div>
-        <div class="row select-form">
-            <div class="col-md-6 tutorial">
-                <h4 class="text-left">Update all parking lots in one city</h4>
-                <div class="form-group text-left">
-                    <label for="select3">Select City</label>
-                        <select class="form-control" name="select_only_city" id="select3">
-                            <option>---</option>
-                            @foreach($city_list as $city)
-                                  <option class="dropdown-item" value="{{ $city_values[$city->city] }}">{{ $city->city }}</option>
-                            @endforeach
-                        </select>
-                        <button class="btn btn-lg btn-primary btn-ticket" name="select_all" value="" type="submit">
-                            Update City Lots
-                        </button>
-                </div>
-            </div>
-        </div>
     </form>
 </div>
 @stop
