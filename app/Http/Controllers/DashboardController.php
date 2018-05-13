@@ -52,6 +52,16 @@ class DashboardController extends Controller
         $c_list = Parking::select('city')->distinct()->orderBy('city', 'ASC')->get();
         $p_list = Parking::all();
 
+        $city = [];
+
+        foreach ($p_list as $parking) {
+            array_push($city, $parking->city);
+        }
+
+        $values = array_count_values($city);
+        arsort($values);
+        $c_most_lots = array_slice(array_keys($values), 0, 1, true);
+
         $data = null;
 
         if(Sentinel::check()) {
@@ -63,7 +73,8 @@ class DashboardController extends Controller
             $data = [
                 'cities' => [
                     'list' => $c_list,
-                    'number' => $c_list->count()
+                    'number' => $c_list->count(),
+                    'most_lots' => $c_most_lots[0]
                 ],
                 'parkings' => [
                     'list' => $p_list,

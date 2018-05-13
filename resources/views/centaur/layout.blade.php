@@ -61,16 +61,6 @@
                         <ul class="nav navbar-nav navbar-right">
                             @if (Sentinel::check())
                                 <li><p class="navbar-text">{{ (Sentinel::getUser()->username) ? Sentinel::getUser()->username : Sentinel::getUser()->email }}</p></li>
-                                @if($data['credit_card'])
-                                    @if($data['account'])
-                                        <li><p class="navbar-text">Account balance: {{ $data['account'] }} kn</p></li>
-                                    @else
-                                        <li><p class="navbar-text">Account balance: 0 kn</p></li>
-                                    @endif
-                                @else
-                                    <li><p class="navbar-text">No credit card detected</p></li>
-                                @endif
-                                <li><a href="{{ route('auth.logout') }}">Log Out</a></li>
                             @else
                                 <li><a href="{{ route('auth.login.form') }}">Login</a></li>
                                 <li><a href="{{ route('auth.register.form') }}">Register</a></li>
