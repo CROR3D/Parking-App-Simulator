@@ -3,20 +3,38 @@
 @section('title', 'Dashboard')
 
 @section('content')
-<div class="row">
     <div class="row dashboard">
-        <div class="page-header">
-            <h1>Profile information</h1>
+        <div class="profile-row">
+            <h1>Profile Information</h1>
         </div>
 
         <form accept-charset="UTF-8" role="form" method="post" action="{{ route('profile_form') }}">
         {{ csrf_field() }}
+
             <div class="profile-row">
-                <h4>Username: </h4> <input type="text" name="username" value="{{ ($data['username']) ? $data['username'] : '' }}"/>
+                <h4>Username: </h4> <input id="username_input" type="text" name="username" value="{{ ($data['username']) ? $data['username'] : '' }}" readonly/>
+                <a id="change_username" class="btn btn-default profile-left">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    Change
+                </a>
+                <a id="save_username" class="btn btn-default profile-left">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    Save Changes
+                </a>
+                {!! ($errors->has('username')) ? $errors->first('username', '<p class="text-danger">:message</p>') : '' !!}
             </div>
 
             <div class="profile-row">
-                <h4>Email: </h4> <input type="text" name="email" value="{{ $data['email'] }}"/>
+                <h4>Email: </h4> <input id="email_input" type="text" name="email" value="{{ $data['email'] }}" readonly/>
+                <a id="change_email" class="btn btn-default profile-left">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    Change
+                </a>
+                <a id="save_email" class="btn btn-default profile-left">
+                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                    Save Changes
+                </a>
+                {!! ($errors->has('email')) ? $errors->first('email', '<p class="text-danger">:message</p>') : '' !!}
             </div>
 
             <div class="profile-section">
@@ -37,7 +55,16 @@
             <div class="profile-section">
                 <h4>Credit card information</h4>
                 <div class="profile-row">
-                    <h4>Credit card number: </h4> <input type="text" name="credit_card" value="{{ $data['credit_card'] }}"/>
+                    <h4>Credit card number: </h4> <input id="card_input" type="text" name="credit_card" value="{{ $data['credit_card'] }}" readonly/>
+                    <a id="change_card" class="btn btn-default profile-left">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        Change
+                    </a>
+                    <a id="save_card" class="btn btn-default profile-left">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        Save Changes
+                    </a>
+                    {!! ($errors->has('credit_card')) ? $errors->first('credit_card', '<p class="text-danger">:message</p>') : '' !!}
                 </div>
 
                 <div class="profile-row">
@@ -53,5 +80,8 @@
             </div>
         </form>
     </div>
-</div>
 @stop
+
+@push('script')
+    <script type="text/javascript" src="{{ URL::asset('js/profile.js') }}"></script>
+@endpush

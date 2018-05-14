@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        @if (Sentinel::check() && !Sentinel::inRole('administrator'))
+        @if (Sentinel::check())
             <div class="panel panel-default spacing">
                 <div class="panel-heading"><h3>Reservation</h3></div>
                 <div class="panel-body">

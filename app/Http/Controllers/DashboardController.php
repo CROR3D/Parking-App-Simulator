@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreProfileData;
+use App\Http\Requests\StoreProfile;
 use App\Models\User;
 use App\Models\Parking;
 use App\Models\Ticket;
@@ -26,7 +26,7 @@ class DashboardController extends Controller
         return view('centaur.profile')->with('data', $data);
     }
 
-    public function profile_form(StoreProfileData $request)
+    public function profile_form(StoreProfile $request)
     {
         $user_id = Sentinel::getUser()->id;
         $account = Sentinel::getUser()->account;

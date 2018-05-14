@@ -104,6 +104,15 @@ th, td {
     float: left;
 }
 
+.profile-row input {
+    padding: 5px 5px 5px 15px;
+    margin-bottom: 10px;
+}
+
+#save_username, #save_email, #save_card {
+    display: none;
+}
+
 .profile-left {
     float: left;
     margin-right: 20px;
