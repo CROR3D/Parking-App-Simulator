@@ -98,6 +98,15 @@ th, td {
     width: 40%;
 }
 
+.info-row {
+    padding: 0 15px 0 50px;
+    margin: 30px 0 50px 0;
+    background-color: #CCCBCB;
+    border-radius: 5px;
+    width: 100%;
+    float: left;
+}
+
 .profile-row {
     padding: 20px 0;
     width: 100%;

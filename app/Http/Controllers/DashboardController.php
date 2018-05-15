@@ -46,6 +46,54 @@ class DashboardController extends Controller
         return redirect()->route('dashboard');
     }
 
+    public function show($data)
+    {
+
+        switch($data) {
+            case 'cities':
+
+                $c_list = Parking::select('city')->distinct()->orderBy('city', 'ASC')->get();
+
+                $info = [
+                    'title' => 'List of cities supporting application',
+                    'id' => 'city',
+                    'data' => $c_list
+                ];
+
+            break;
+
+            case 'parking':
+
+                $p_list = Parking::select('*')->orderBy('city', 'ASC')->get();
+
+                $info = [
+                    'title' => 'List of parking lots supporting application',
+                    'id' => 'parking',
+                    'data' => $p_list
+                ];
+
+            break;
+
+            case 'users':
+
+                $t_list = Ticket::where('user_id', '<>', null)->get();
+                $p_list = Parking::select('*')->orderBy('city', 'ASC')->get();
+                $u_list = User::all();
+
+                $info = [
+                    'title' => 'List of registered users on parking lots',
+                    'id' => 'users',
+                    'data' => $t_list,
+                    'users' => $u_list,
+                    'lots' => $p_list
+                ];
+
+            break;
+        }
+
+        return view('centaur.show')->with('info', $info);
+    }
+
     public function dashboard()
     {
 

@@ -12,6 +12,21 @@ use Route;
 
 class SelectController extends Controller
 {
+    public function __construct()
+    {
+
+        // PROVJERA POSTOJE LI REZERVACIJE koje su istekle (brišu se ako postoje)
+
+        $expire_time = Carbon::now();
+        $expire = Reservation::where('expire_time', '<', $expire_time)->get();
+
+        if($expire) {
+            foreach($expire as $value) {
+                Reservation::where('user_id', $value->user_id)->delete();
+            }
+        }
+    }
+
     public function select()
     {
         $city_list = Parking::select('city')->distinct()->orderBy('city', 'ASC')->get();

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Models\Parking;
 use App\Models\Reservation;
+use App\Models\User;
 use Carbon\Carbon;
 use Sentinel;
 
@@ -35,16 +36,24 @@ class ReservationsController extends Controller
         $spots_current = Ticket::where('parking_id', $parking->id)->count();
         $spots_reserved = Reservation::where('parking_id', $parking->id)->count();
         $spots_taken = $spots_current + $spots_reserved;
+        $parking_id = $parking->id;
+        $reservation_price = $parking->price_of_reservation;
+
+        $user_id = Sentinel::getUser()->id;
+        $reservation_price = $parking->price_of_reservation;
+        $penalty_price = $parking->price_of_reservation_penalty;
+        $user = User::findOrFail($user_id);
+        $account = $user->account;
 
         switch(true) {
             case(isset($_POST['reservation'])):
 
-                $check_spots = Ticket::where('user_id', Sentinel::getUser()->id)->first();
+                $check_spots = Ticket::where('user_id', $user_id)->first();
 
                 if($spots_taken < $spots_total && !$check_spots) {
 
                     $reservation = array(
-                        'user_id' => Sentinel::getUser()->id,
+                        'user_id' => $user_id,
                         'parking_id' => $parking->id,
                         'code' => sprintf('%04d', rand(0000, 9999)),
                         'cancellation' => Carbon::now()->addMinute(10),
@@ -55,7 +64,11 @@ class ReservationsController extends Controller
 
                         session()->flash('info', 'You already have reservation!');
 
-                    } else {
+                    } elseif($account <= ($reservation_price + $penalty_price)) {
+
+                        session()->flash('info', 'You don\'t have enough money to make reservation and take possible penalty!');
+
+                    }else {
                         $new_reservation = new Reservation;
                         $data = $new_reservation->saveReservation($reservation);
 
@@ -79,11 +92,17 @@ class ReservationsController extends Controller
 
             case(isset($_POST['reservation_true'])):
 
-                $cancellation = Reservation::where('user_id', Sentinel::getUser()->id)->first()->cancellation;
+                $res = Reservation::where('user_id', $user_id)->first();
+                $cancellation = $res->cancellation;
 
                 if(Carbon::now() > $cancellation) {
-                    
-                } else {
+
+                    $profile = [
+                        'account' => $account - $penalty_price
+                    ];
+
+                    $user->updateUser($profile);
+                    $user->save();
 
                 }
 

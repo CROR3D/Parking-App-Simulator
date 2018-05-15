@@ -99,7 +99,7 @@ class MigrationCartalystSentinel extends Migration
             $table->string('password');
             $table->string('username')->nullable();
             $table->string('credit_card')->nullable();
-            $table->integer('account')->unsigned()->index()->nullable();
+            $table->unsignedDecimal('account')->index()->nullable();
             $table->text('permissions')->nullable();
             $table->timestamp('last_login')->nullable();
             $table->timestamps();

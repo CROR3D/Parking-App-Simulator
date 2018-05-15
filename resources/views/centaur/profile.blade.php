@@ -1,6 +1,6 @@
 @extends('Centaur::layout')
 
-@section('title', 'Dashboard')
+@section('title', 'Profile')
 
 @section('content')
     <div class="row dashboard">
