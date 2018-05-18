@@ -13,7 +13,7 @@
         <h2 class="title">Parking Update</h2>
         <div class="row select-form">
             <div class="col-md-6">
-                <h4 class="text-left">Update parking lot individualy</h4>
+                <h4 class="text-left">Update parking lot individually</h4>
 
                     @include('simulator.sub-views.select_form')
 

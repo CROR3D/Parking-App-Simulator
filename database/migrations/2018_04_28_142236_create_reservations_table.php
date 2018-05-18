@@ -19,6 +19,7 @@ class CreateReservationsTable extends Migration
             $table->integer('code')->index();
             $table->dateTime('cancellation')->nullable();
             $table->dateTime('expire_time')->nullable();
+            $table->boolean('penalty')->default(true);
             $table->timestamps();
 
             $table->engine = 'InnoDB';

@@ -40,15 +40,18 @@
             <div class="profile-section">
                 <h4>Change password: </h4>
                 <div class="profile-row">
-                    <h4>Old password: </h4> <input type="text"/>
+                    <h4>Old password: </h4> <input type="text" name="old_password"/>
+                    {!! ($errors->has('old_password')) ? $errors->first('old_password', '<p class="text-danger">:message</p>') : '' !!}
                 </div>
 
                 <div class="profile-row">
-                    <h4>New password: </h4> <input type="password"/>
+                    <h4>New password: </h4> <input type="password" name="new_password"/>
+                    {!! ($errors->has('new_password')) ? $errors->first('new_password', '<p class="text-danger">:message</p>') : '' !!}
                 </div>
 
                 <div class="profile-row">
-                    <h4>Confirm new password: </h4> <input type="password"/>
+                    <h4>Confirm new password: </h4> <input type="password" name="confirm_password"/>
+                    {!! ($errors->has('confirm_password')) ? $errors->first('confirm_password', '<p class="text-danger">:message</p>') : '' !!}
                 </div>
             </div>
 

@@ -10,6 +10,7 @@ use App\Models\Ticket;
 use App\Models\Reservation;
 use Carbon\Carbon;
 use Sentinel;
+use Hash;
 
 class DashboardController extends Controller
 {
@@ -31,10 +32,17 @@ class DashboardController extends Controller
         $user_id = Sentinel::getUser()->id;
         $account = Sentinel::getUser()->account;
         $user = User::findOrFail($user_id);
+        $password = $user->password;
+        $new_password = $password;
+
+        if (Hash::check($request->get('old_password'), $password)) {
+            $new_password = Hash::make($request->get('new_password'));
+        }
 
         $profile = [
             'username' => $request->get('username'),
             'email' => $request->get('email'),
+            'password' => $new_password,
             'credit_card' => $request->get('credit_card'),
             'account' => $account + $request->get('account')
         ];

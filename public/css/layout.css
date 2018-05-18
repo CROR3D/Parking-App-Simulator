@@ -99,10 +99,9 @@ th, td {
 }
 
 .info-row {
-    padding: 0 15px 0 50px;
+    padding: 0 15px 30px 50px;
     margin: 30px 0 50px 0;
-    background-color: #CCCBCB;
-    border-radius: 5px;
+    border-bottom: 2PX solid #1D5378;
     width: 100%;
     float: left;
 }

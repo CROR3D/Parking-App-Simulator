@@ -26,6 +26,9 @@ class StoreProfile extends FormRequest
         return [
             'username' => 'required',
             'email' => 'required',
+            'old_password' => 'nullable|min:8',
+            'new_password' => 'nullable|same:confirm_password|min:8',
+            'confirm_password' => 'nullable|required_with:old_password|same:new_password|min:8',
             'credit_card' => 'nullable|numeric',
             'account' => 'nullable|numeric'
         ];

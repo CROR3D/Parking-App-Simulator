@@ -16,13 +16,27 @@ class ReservationsController extends Controller
     public function __construct()
     {
 
-        // PROVJERA POSTOJE LI REZERVACIJE koje su istekle (brišu se ako postoje)
+        // PROVJERA POSTOJE LI REZERVACIJE koje su istekle (brišu se ako postoje) i naplata ako nisu validirane u zadanom roku
 
         $expire_time = Carbon::now();
         $expire = Reservation::where('expire_time', '<', $expire_time)->get();
 
         if($expire) {
             foreach($expire as $value) {
+                if($value->penalty) {
+
+                    $user_res = User::findOrFail($value->user_id);
+                    $parking_res = Parking::findOrFail($value->parking_id);
+                    $account_res = $user_res->account;
+
+                    $user_arr = [
+                        'account' => $account_res - $parking_res->price_of_reservation_penalty
+                    ];
+
+                    $user_res->updateUser($user_arr);
+                    $user_res->save();
+                }
+
                 Reservation::where('user_id', $value->user_id)->delete();
             }
         }
@@ -66,11 +80,19 @@ class ReservationsController extends Controller
 
                     } elseif($account <= ($reservation_price + $penalty_price)) {
 
-                        session()->flash('info', 'You don\'t have enough money to make reservation and take possible penalty!');
+                        session()->flash('info', 'You don\'t have enough money on your account to make this reservation!');
 
                     }else {
+
                         $new_reservation = new Reservation;
-                        $data = $new_reservation->saveReservation($reservation);
+                        $new_reservation->saveReservation($reservation);
+
+                        $user_acc = [
+                            'account' => $account - $reservation_price
+                        ];
+
+                        $user->updateUser($user_acc);
+                        $user->save();
 
                         session()->flash('info', 'New reservation created in ' . $parking->city . ' (' . $parking->name . ')!');
 
@@ -95,16 +117,26 @@ class ReservationsController extends Controller
                 $res = Reservation::where('user_id', $user_id)->first();
                 $cancellation = $res->cancellation;
 
-                if(Carbon::now() > $cancellation) {
+                if(Carbon::now() <= $cancellation) {
+
+                    $profile = [
+                        'account' => $account + $reservation_price
+                    ];
+
+                    session()->flash('info', 'You got ' . $reservation_price . ' kn back!');
+
+                } else {
 
                     $profile = [
                         'account' => $account - $penalty_price
                     ];
 
-                    $user->updateUser($profile);
-                    $user->save();
+                    session()->flash('info', 'Penalty has been charged: ' . $penalty_price . ' kn.');
 
                 }
+
+                $user->updateUser($profile);
+                $user->save();
 
                 Reservation::where('user_id', Sentinel::getUser()->id)->delete();
 

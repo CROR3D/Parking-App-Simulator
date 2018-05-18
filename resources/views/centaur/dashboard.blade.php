@@ -30,13 +30,13 @@
         <div class="info-row">
 
             <div class="profile-row">
-                <h3>Account balance: <span class="text-primary">{{ $data['account'] }}</span> kn</h3>
+                <h3>Account balance: <span class="text-primary">{{ ($data['account']) ? $data['account'] : 0 }}</span> kn</h3>
+            </div>
+            <div class="profile-row">
+                <h4>Current reservation: </h4>
             </div>
             <div class="profile-row">
                 <h4>Last reservation: </h4>
-            </div>
-            <div class="profile-row">
-                <h4>Last parking used: </h4>
             </div>
         </div>
 

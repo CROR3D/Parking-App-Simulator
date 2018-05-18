@@ -54,22 +54,17 @@ ADMINISTRATOR može:
 
     - povezivati parkirališta s aplikacijom (create)
     - ažurirati postojeća parkirališta (mijenjati cijene, radno vrijeme, ...)
-    - odobravati dnevne popuste
     - slati obavijesti korisnicima (u slučaju radova, skraćenog radnog vremena, popusta, ...)
     - stvarati korisnike i dodjeljivati uloge
     - pretraživati parkirališta
+    - rezervirati mjesta
     - pratiti opće podatke o aplikaciji
-    - pratiti prijavljene probleme
 
 KORISNIK može:
 
     - pretraživati parkirališta
     - rezervirati mjesta
-    - plaćati preko računa
-    - koristiti dodatne pogodnosti (popusti ...)
     - pratiti obavjesti
-    - prijaviti problem
-
 
 ## PROBLEMI I KODIRANJE
 
@@ -90,9 +85,12 @@ KORISNIK može:
 
 - Koristite ParkingDatabaseSeeder.php (uključuje 1 administratora, 1 usera, 2 parkirališta) umjesto SentinelDatabaseSeeder.php
 
-## NADOGRADNJA APLIKACIJE (stvari koje bi trebalo popraviti)
+## NADOGRADNJA (stvari koje bi trebalo popraviti ili nadograditi)
 
-- za korištenje kartica je zasad izrađen samo 'dummy' servis (nema sigurnosnih mjera niti veze s bankovnim računima)
+- za korištenje kartica i računa zasad je izrađen samo 'dummy' servis (nema sigurnosnih mjera niti veze s bankovnim računima)
+- dodati plaćanje parkirnih karti preko računa
+- dodati sistem poruka između korisnika
+- dodati dodatne ovlasti administratoru (odobravanje dnevnih popusta, lakši update za više parkirališta odjednom, razdvojiti ulogu admina na super-admina i admina, ...)
 - potrebno dodatno uređenje koda i provjere sigurnosti
 - potrebno bolje uređenje baze podataka
 - promjeniti dodjeljivanje uloga korisnicima (trenutno je Centaur default)

@@ -47,13 +47,17 @@
                     <h4>Price of reservation: {{ $parking->price_of_reservation }} kn</h4>
                     <h4>Duration of reservation: 25 minutes</h4>
                     <h4>Charge for missed reservation: {{ $parking->price_of_reservation_penalty }} kn</h4>
-                    <h4>Time to cancel: 5 minutes</h4>
+                    <h4>Time to cancel (get money refund): 5 minutes</h4>
                     <h4>Disabled usage of service after cancellation: 10 minutes</h4>
+
+                    @if($reservation['code'] && $reservation['parking'] === $parking->id)
+                        <h3>Your access code is: <span class="text-danger">{{ $reservation['code'] }}</span></h3>
+                    @endif
                 </div>
                 <div class="panel-footer">
                     <form accept-charset="UTF-8" role="form" method="post" action="{{ route('view_forms', ['slug' => $parking->slug]) }}">
-                        <button class="btn {{ ($has_reservation) ? 'btn-danger' : 'btn-primary' }} btn-lg" name="{{ ($has_reservation) ? 'reservation_true' : 'reservation' }}" type="submit">
-                            {{ ($has_reservation) ? 'Cancel reservation' : 'Make reservation' }}
+                        <button class="btn {{ ($has_reservation && $reservation['parking'] === $parking->id) ? 'btn-danger' : 'btn-primary' }} btn-lg" name="{{ ($has_reservation && $reservation['parking'] === $parking->id) ? 'reservation_true' : 'reservation' }}" type="submit">
+                            {{ ($has_reservation && $reservation['parking'] === $parking->id) ? 'Cancel reservation' : 'Make reservation' }}
                         </button>
                         {{ csrf_field() }}
                     </form>
