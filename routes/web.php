@@ -61,6 +61,9 @@ Route::post('profile', ['as' => 'profile_form', 'uses' => 'DashboardController@p
 
 Route::get('show/{data}', ['as' => 'show', 'uses' => 'DashboardController@show', 'middleware' => 'sentinel.auth']);
 
+Route::get('message', ['as' => 'message', 'uses' => 'MessagesController@create', 'middleware' => 'sentinel.auth']);
+Route::post('message', ['as' => 'message_form', 'uses' => 'MessagesController@form']);
+
 // Home
 Route::get('/', ['as' => 'index', 'uses' => 'SelectController@index']);
 

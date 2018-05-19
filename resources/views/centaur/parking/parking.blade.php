@@ -45,7 +45,7 @@
                 <div class="panel-heading"><h3>Reservation</h3></div>
                 <div class="panel-body">
                     <h4>Price of reservation: {{ $parking->price_of_reservation }} kn</h4>
-                    <h4>Duration of reservation: 25 minutes</h4>
+                    <h4>Duration of reservation: 30 minutes</h4>
                     <h4>Charge for missed reservation: {{ $parking->price_of_reservation_penalty }} kn</h4>
                     <h4>Time to cancel (get money refund): 5 minutes</h4>
                     <h4>Disabled usage of service after cancellation: 10 minutes</h4>

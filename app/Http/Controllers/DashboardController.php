@@ -138,14 +138,33 @@ class DashboardController extends Controller
                 ],
                 'users' => [
                     'user_id' => $user_id,
-                    'number' => Ticket::where('user_id', '<>', null)->count()
+                    'number' => Ticket::where('user_id', '<>', null)->count(),
+                    'reservation' => [
+                        'city' => null,
+                        'parking' => null,
+                        'time' => null,
+                        'expires' => null,
+                        'code' => null
+                    ]
                 ],
                 'account' => $account,
                 'credit_card' => $credit_card
             ];
+
+            if($reservation = Reservation::where('user_id', $user_id)->first()) {
+                $lot = Parking::findOrFail($reservation->parking_id);
+
+                $data['users']['reservation'] = [
+                    'city' => $lot->city,
+                    'parking' => $lot->name,
+                    'time' => $reservation->created_at,
+                    'expires' => $reservation->expire_time,
+                    'code' => $reservation->code
+                ];
+            }
         }
 
-        $admin_msg = true;
+        $admin_msg = false;
 
         return view('centaur.dashboard')->with(['data' => $data, 'admin_msg' => $admin_msg]);
     }
