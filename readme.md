@@ -89,7 +89,8 @@ KORISNIK može:
 
 - za korištenje kartica i računa zasad je izrađen samo 'dummy' servis (nema sigurnosnih mjera niti veze s bankovnim računima)
 - dodati plaćanje parkirnih karti preko računa
-- dodati sistem poruka između korisnika
+- dodati parkirna mjesta za invalide
+- dodati (popraviti) sistem poruka između svih korisnika
 - dodati dodatne ovlasti administratoru (odobravanje dnevnih popusta, lakši update za više parkirališta odjednom, razdvojiti ulogu admina na super-admina i admina, ...)
 - potrebno dodatno uređenje koda i provjere sigurnosti
 - potrebno bolje uređenje baze podataka

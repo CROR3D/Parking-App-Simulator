@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Parking;
 use App\Models\Ticket;
 use App\Models\Reservation;
+use App\Models\Message;
 use Carbon\Carbon;
 use Sentinel;
 use Hash;
@@ -164,7 +165,18 @@ class DashboardController extends Controller
             }
         }
 
-        $admin_msg = false;
+        $admin_msg = [];
+
+        if($messages = Message::all()) {
+            foreach ($messages as $value) {
+                $msg = [
+                    'title' => $value->title,
+                    'content' => $value->content
+                ];
+
+                array_push($admin_msg, $msg);
+            }
+        }
 
         return view('centaur.dashboard')->with(['data' => $data, 'admin_msg' => $admin_msg]);
     }

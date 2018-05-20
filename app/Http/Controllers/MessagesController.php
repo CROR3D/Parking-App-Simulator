@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreMessage;
 use App\Models\Message;
+use Sentinel;
 
 class MessagesController extends Controller
 {
@@ -18,10 +20,18 @@ class MessagesController extends Controller
         return view('centaur.message');
     }
 
-    public function form()
+    public function form(StoreMessage $request)
     {
-        session()->flash('info', 'Message was sent.');
+        $message = array(
+            'user_id' => Sentinel::getUser()->id,
+            'title' => $request->get('title'),
+            'content' => $request->get('content')
+        );
 
+        $new_message = new Message;
+        $new_message->saveMessage($message);
+
+        session()->flash('info', 'Message was announced to all users.');
         return redirect()->route('dashboard');
     }
 }

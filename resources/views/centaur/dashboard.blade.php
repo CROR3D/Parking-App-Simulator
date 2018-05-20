@@ -103,11 +103,16 @@
         <div class="profile-section">
             <h1 class="text-danger">Administrator Messages</h1>
         </div>
-        <div class="profile-row">
+        <div class="profile-section">
             @if($admin_msg)
-                <h4>Parking lot 'Foša' in Zadar will be closed 01.06.2018!</h4>
+                @foreach($admin_msg as $msg)
+                <div class="profile-row">
+                    <h3>{{ $msg['title'] }}</h3>
+                    <h4>{{ $msg['content'] }}</h4>
+                </div>
+                @endforeach
             @else
-                <h4>There is no messages.</h4>
+                <h4>There are no messages.</h4>
             @endif
         </div>
     @endif

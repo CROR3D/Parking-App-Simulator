@@ -34,7 +34,7 @@ class ParkingDatabaseSeeder extends Seeder
             'address' => 'Ulica kralja Dmitra Zvonimira 2',
             'slug' => 'zadar-fosa',
             'spots' => '50',
-            'image' => 'images/parking/zadar-fosa.jpg',
+            'image' => 'images/parking/zadar-fosa.png',
             'working_time' => '08:00-16:00',
             'price_per_hour' => '4.00',
             'price_of_reservation' => '2.00',

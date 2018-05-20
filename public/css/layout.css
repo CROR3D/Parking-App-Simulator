@@ -60,7 +60,8 @@ th, td {
 .parking_map {
     width: 80%;
     height: 400px;
-    margin: 40px auto;
+    margin: 20px auto 70px auto;
+    border: 1px solid lightgrey;
 }
 
 .parking_map img {
