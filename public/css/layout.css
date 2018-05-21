@@ -47,6 +47,22 @@ th, td {
     padding: 15px;
 }
 
+.table-data {
+    float: left;
+    width: calc(100%  /3);
+    margin-top: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid lightgrey;
+}
+
+.table-data-simulator {
+    float: left;
+    width: 50%;
+    margin-top: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid lightgrey;
+}
+
 .payment_device .row {
     margin: 15px 0;
     width: 100%;
@@ -253,6 +269,10 @@ th, td {
 @media only screen and (max-width: 575px) {
     .numpad {
         margin: 0;
+        width: 100%;
+    }
+
+    .table-data, .table-data-simulator {
         width: 100%;
     }
 

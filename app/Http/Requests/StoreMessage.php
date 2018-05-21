@@ -24,7 +24,7 @@ class StoreMessage extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'min:3|max:50|required',
+            'title' => 'min:3|max:30|required',
             'content' => 'min:3|required'
         ];
     }

@@ -64,8 +64,12 @@ Route::get('show/{data}', ['as' => 'show', 'uses' => 'DashboardController@show',
 Route::get('message', ['as' => 'message', 'uses' => 'MessagesController@create', 'middleware' => 'sentinel.auth']);
 Route::post('message', ['as' => 'message_form', 'uses' => 'MessagesController@form']);
 
+Route::get('messages', ['as' => 'messages', 'uses' => 'MessagesController@view', 'middleware' => 'sentinel.auth']);
+Route::get('messages/{id}', ['as' => 'view_msg', 'uses' => 'MessagesController@message', 'middleware' => 'sentinel.auth']);
+Route::delete('messages/{id?}', ['as' => 'delete_msg', 'uses' => 'MessagesController@delete']);
+
 // Home
-Route::get('/', ['as' => 'index', 'uses' => 'SelectController@index']);
+Route::get('/', ['as' => 'index', 'uses' => 'SelectController@index', 'middleware' => 'sentinel.guest']);
 
 // Simulator
 Route::get('simulator', ['as' => 'simulator', 'uses' => 'SelectController@select']);

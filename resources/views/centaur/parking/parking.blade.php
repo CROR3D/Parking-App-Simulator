@@ -24,19 +24,18 @@
         <div class="text-center spacing">
             <h4>Parking situation: </h4>
             <div class="table-responsive">
-                <table class="table">
-                    <tr>
-                        <th>Parking spots taken</th>
-                        <th>Parking spots reserved</th>
-                        <th>Total parking spots</th>
-                    </tr>
-
-                    <tr>
-                        <td>{{ $count['taken'] }}</td>
-                        <td>{{ $count['reserved'] }}</td>
-                        <td>{{ $parking->spots }}</td>
-                    </tr>
-                </table>
+                <div class="table-data">
+                    <h4 class="text-primary">Parking spots taken</h4>
+                    <h4>{{ $count['taken'] }}</h4>
+                </div>
+                <div class="table-data">
+                    <h4 class="text-primary">Parking spots reserved</h4>
+                    <h4>{{ $count['reserved'] }}</h4>
+                </div>
+                <div class="table-data">
+                    <h4 class="text-primary">Total parking spots</h4>
+                    <h4>{{ $parking->spots }}</h4>
+                </div>
             </div>
         </div>
 

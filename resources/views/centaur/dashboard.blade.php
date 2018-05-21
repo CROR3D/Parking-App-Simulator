@@ -40,10 +40,19 @@
             </div>
             <div class="profile-section">
                 <div class="profile-row">
-                    <h4 class="profile-left">Write message to all users</h4>
-                    <a href="{{ route('message') }}" class="btn btn-danger profile-right">
+                    <h4 class="profile-left">Make notification for all users</h4>
+                    <a href="{{ route('message') }}" class="btn btn-default profile-right">
                         <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                         Write
+                    </a>
+                </div>
+            </div>
+            <div class="profile-section">
+                <div class="profile-row">
+                    <h4 class="profile-left">View messages</h4>
+                    <a href="{{ route('messages') }}" class="btn btn-default profile-right">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        View
                     </a>
                 </div>
             </div>

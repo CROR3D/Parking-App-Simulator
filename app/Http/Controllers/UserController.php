@@ -73,9 +73,7 @@ class UserController extends Controller
         // Assemble registration credentials and attributes
         $credentials = [
             'email' => trim($request->get('email')),
-            'password' => $request->get('password'),
-            'first_name' => $request->get('first_name', null),
-            'last_name' => $request->get('last_name', null)
+            'password' => $request->get('password')
         ];
         $activate = (bool)$request->get('activate', false);
 

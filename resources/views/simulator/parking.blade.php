@@ -115,17 +115,14 @@
                             <div class="text-center spacing">
                                 <h4>Parking situation: </h4>
                                 <div class="table-responsive">
-                                    <table class="table">
-                                        <tr>
-                                            <th>Parking spots taken</th>
-                                            <th>Total parking spots</th>
-                                        </tr>
-
-                                        <tr>
-                                            <td>{{ $count['taken'] }}</td>
-                                            <td>{{ $parking->spots }}</td>
-                                        </tr>
-                                    </table>
+                                    <div class="table-data-simulator">
+                                        <h4 class="text-primary">Parking spots taken</h4>
+                                        <h4>{{ $count['taken'] }}</h4>
+                                    </div>
+                                    <div class="table-data-simulator">
+                                        <h4 class="text-primary">Total parking spots</h4>
+                                        <h4>{{ $parking->spots }}</h4>
+                                    </div>
                                 </div>
                             </div>
                         </div>

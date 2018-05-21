@@ -13,14 +13,11 @@ Korisnici imaju mogućnost:
  - vidjeti trenutačno stanje na parkingu (broj zauzetih mjesta / broj rezerviranih mjesta / ukupan broj mjesta)
 
     ###### REZERVIRANJE PARKIRNOG MJESTA
-    Dok pregledavaju stanje na parkiralištima koja podržavaju ovu aplikaciju korisnici imaju mogućnost rezervirati mjesto.
-
-    Rezervacija mjesta:
       - se naplaćuje (cijena ovisi o parkingu)
       - korisnik nakon zahtjeva dobiva četveroznamenkasti KOD kojeg validira na ulazu u parking (ulazne rampe imaju jednostavnu tipkovnicu i display)
-      - korisnik ima određeno vrijeme da validira dobiveni KOD na izabranom parkiralištu (cca 20-30min - u protivnom mu se obračunava dodatna naknada za neispunjavanje rezervacije (DA SE ZAUSTAVI ISKORIŠTAVANJE MASOVNIH REZERVACIJA))
-      - korisnik ima određeno vrijeme za otkazati rezervaciju (cca 5-10 min - rezervacija mu se naplaćuje tek kada ovo vrijeme istekne (NEMA SMISLA NAPLATITI REZERVACIJU KOJA JE OTKAZANA NA VRIJEME - USER FRIENDLY))
-        nakon otkazivanja korisniku se na neko kratko vrijeme onemogućava rezervacija ( cca 5 min - DA SE ZAUSTAVI ISKORIŠTAVANJE MASOVNIH OTKAZIVANJA REZERVACIJA)
+      - korisnik ima određeno vrijeme da validira dobiveni KOD na izabranom parkiralištu (~ 30min - u protivnom mu se obračunava dodatna naknada za neispunjavanje rezervacije (DA SE ZAUSTAVI ISKORIŠTAVANJE MASOVNIH REZERVACIJA))
+      - korisnik ima određeno vrijeme za otkazati rezervaciju (~ 5 min - rezervacija mu se naplaćuje tek kada ovo vrijeme istekne (NEMA SMISLA NAPLATITI REZERVACIJU KOJA JE OTKAZANA NA VRIJEME - USER FRIENDLY))
+        nakon otkazivanja korisniku se na neko kratko vrijeme onemogućava rezervacija ( ~ 5 min - DA SE ZAUSTAVI ISKORIŠTAVANJE MASOVNIH OTKAZIVANJA REZERVACIJA)
 
       - na ulazu u prakiralište korisnik upisuje rezervacijski KOD i dobiva ulaznu kartu
 
@@ -84,6 +81,7 @@ KORISNIK može:
 ## NAPOMENA
 
 - Koristite ParkingDatabaseSeeder.php (uključuje 1 administratora, 1 usera, 2 parkirališta) umjesto SentinelDatabaseSeeder.php
+- Pri stvaranju novih parkirnih mjesta možete koristiti slike u public/images/parking direktoriju
 
 ## NADOGRADNJA (stvari koje bi trebalo popraviti ili nadograditi)
 

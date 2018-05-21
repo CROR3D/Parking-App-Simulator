@@ -123,7 +123,7 @@ class ReservationsController extends Controller
                         'account' => $account + $reservation_price
                     ];
 
-                    session()->flash('info', 'You got ' . $reservation_price . ' kn back!');
+                    $refund = true;
 
                 } else {
 
@@ -131,7 +131,7 @@ class ReservationsController extends Controller
                         'account' => $account - $penalty_price
                     ];
 
-                    session()->flash('info', 'Penalty has been charged: ' . $penalty_price . ' kn.');
+                    $refund = false;
 
                 }
 
@@ -140,7 +140,12 @@ class ReservationsController extends Controller
 
                 Reservation::where('user_id', Sentinel::getUser()->id)->delete();
 
-                session()->flash('info', 'Reservation canceled in ' . $parking->city . ' (' . $parking->name . ')!');
+                if($refund) {
+                    session()->flash('info', 'Reservation canceled in ' . $parking->city . ' (' . $parking->name . ')! You got ' . $reservation_price . ' kn back.');
+                } else {
+                    session()->flash('info', 'Reservation canceled in ' . $parking->city . ' (' . $parking->name . ')! You got ' . $penalty_price . ' kn penalty.');
+                }
+
                 return redirect()->route('parking_view', ['slug' => $slug]);
 
             break;
