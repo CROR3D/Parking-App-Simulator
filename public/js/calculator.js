@@ -8,7 +8,7 @@ $(document).ready(function() {
     var buttonPressed = $(this).html();
     console.log(buttonPressed);
 
-    if (buttonPressed === "C") {
+  if (buttonPressed === "C") {
       result = 0;
       currentEntry = '';
   } else if (isNumber(buttonPressed)) {

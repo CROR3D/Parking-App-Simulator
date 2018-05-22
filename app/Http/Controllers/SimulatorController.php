@@ -262,7 +262,8 @@ class SimulatorController extends Controller
 
                     if ($hours == 0) $hours = 1;
                     $price = ceil($hours) * $price_hour;
-                    $update_ticket = Ticket::where('code', $ticket_check)->update(['price' => $price]);
+
+                    $price = $price . ' kn';
 
                     return redirect()->route('parking_select', ['slug' => $slug])->with(['got_ticket' => $got_ticket, 'ticket_check' => $ticket_check, 'price' => $price]);
 
@@ -284,13 +285,16 @@ class SimulatorController extends Controller
 
                 $got_ticket = 3;
                 $coin_check = $_POST['insert_coins'];
-                $price_check = $_POST['payment_screen'];
+                $price = $_POST['payment_screen'];
+                $drop_kn = explode(' kn', $price);
+                $price_check = (int)$drop_kn[0];
                 $ticket_check = $_POST['insert_ticket'];
 
                 if(is_numeric($coin_check)) {
 
                     if($coin_check > $price_check) {
                         $refund = $coin_check - $price_check;
+                        $refund = $refund . ' kn';
                     } elseif ($coin_check == $price_check) {
                         $refund = 0;
                     } elseif ($coin_check < $price_check) {
