@@ -1,3 +1,25 @@
+/* CREATE PARKING FORM */
+
+.number-box {
+    width: 100%;
+    padding: 10px 0;
+}
+
+
+.time {
+    font-family: monospace;
+    width: 5.5ch;
+    display: inline-block;
+}
+
+.prices {
+    font-family: monospace;
+    width: 5.5ch;
+    display: inline-block;
+}
+
+/* LAYOUT */
+
 .nav-dropdown-link{
     float: left;
     text-decoration: none;
@@ -189,6 +211,21 @@ th, td {
 
 .num-row input, .ticket-area input{
     width: 100%;
+}
+
+.time_input {
+    display: inline-block;
+}
+
+.middle {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.total_time {
+    width: 350px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .payment-device{

@@ -152,6 +152,7 @@ class SelectController extends Controller
             'refund' => 0
         ];
 
+        $total = null;
         $ticket_check = null;
         $exit_ticket_check = null;
 
@@ -195,6 +196,7 @@ class SelectController extends Controller
 
         if(session('got_ticket') === 3 && session('price')) {
             $status['entrance'] = 4;
+            $total = session('total');
             $ticket['price'] = session('price');
             $ticket_check = session('ticket_check');
         }
@@ -211,6 +213,7 @@ class SelectController extends Controller
             'has_reservation' => $has_reservation,
             'count' => $count,
             'ticket' => $ticket,
+            'total' => $total,
             'ticket_check' => $ticket_check,
             'exit_ticket_check' => $exit_ticket_check
         ];

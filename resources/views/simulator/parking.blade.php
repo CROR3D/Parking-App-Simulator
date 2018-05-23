@@ -129,6 +129,29 @@
                     </div>
 
         @elseif($status['entrance'] == 4)
+                <div class="panel panel-default service">
+                    <h3 class="text-center spacing-btm">Time lapse</h3>
+                    <div class="panel-body">
+                        <div class="form-group middle">
+                              Days:
+                              <div class="time_input">
+                                  <input type="text" class="form-control time" name="parking_days" maxlength="2"/>
+                              </div>
+                              Hours:
+                              <div class="time_input">
+                                  <input type="text" class="form-control time" name="parking_hours" maxlength="2"/>
+                              </div>
+                              Minutes:
+                              <div class="time_input">
+                                  <input type="text" class="form-control time" name="parking_minutes" maxlength="2"/>
+                              </div>
+                        </div>
+                        <div class="form-group middle">
+                            Total time:
+                            <input type="text" class="form-control total_time" name="parking_time" value="{{ ($total) ? $total : '' }}"/>
+                        </div>
+                    </div>
+                </div>
                     <div class="panel panel-default service">
                         <h3 class="text-center spacing-btm">Payment device</h3>
                         <div class="panel-body">

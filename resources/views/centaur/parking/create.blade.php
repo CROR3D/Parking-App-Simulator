@@ -3,7 +3,7 @@
 @section('title', 'Create New Parking Lot')
 
 @push('custom-css')
-    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/create.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/layout.css') }}">
 @endpush
 
 @section('content')
