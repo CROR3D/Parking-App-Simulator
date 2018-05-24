@@ -47,7 +47,7 @@ class ParkingDatabaseSeeder extends Seeder
             'address' => 'Preradovićevo šetalište',
             'slug' => 'split-bacvice',
             'spots' => '35',
-            'image' => 'images/parking/split-bacvice.jpg',
+            'image' => 'images/parking/split-bacvice.png',
             'working_time' => '07:00-17:30',
             'price_per_hour' => '6.00',
             'price_of_reservation' => '4.00',

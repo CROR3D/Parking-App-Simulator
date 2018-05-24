@@ -148,36 +148,39 @@
                         </div>
                         <div class="form-group middle">
                             Total time:
-                            <input type="text" class="form-control total_time" name="parking_time" value="{{ ($total) ? $total : '' }}"/>
+                            <input type="text" class="form-control total_time" name="parking_time" value="{{ ($total) ? $total : '' }}" readonly/>
                         </div>
                     </div>
                 </div>
-                    <div class="panel panel-default service">
-                        <h3 class="text-center spacing-btm">Payment device</h3>
-                        <div class="panel-body">
-                            <div class="payment-device">
-                                <div class="panel panel-primary">
-                                    <div class="row">
-                                        <input id="payment_screen" type="text" name="payment_screen" value="{{ ($ticket['price'] == 0) ? '' : $ticket['price'] }}" readonly/>
-                                    </div>
 
-                                    <div class="row">
-                                        <input id="insert_ticket" type="text" name="insert_ticket" placeholder="Insert ticket" value="{{ ($ticket_check) ? $ticket_check : '' }}" {{ ($ticket_check) ? 'readonly' : '' }}/>
-                                    </div>
-                                    <button class="btn btn-primary btn-md" name="submit_ticket" type="submit" {{ ($ticket['price'] == 0) ? '' : 'disabled' }}>Accept ticket</button>
+                <div class="panel panel-default service">
+                    <h3 class="text-center spacing-btm">Payment device</h3>
+                    <div class="panel-body">
+                        <div class="payment-device">
+                            <div class="panel panel-primary">
+                                <div class="row">
+                                    <input id="payment_screen" type="text" name="payment_screen" value="{{ ($ticket['price'] == 0) ? '' : $ticket['price'] }}" readonly/>
+                                </div>
+                                <div class="row">
+                                    <h4 class="payment_placeholder">Insert ticket:</h4>
+                                    <input id="insert_ticket" type="text" name="insert_ticket" value="{{ ($ticket_check) ? $ticket_check : '' }}" {{ ($ticket_check) ? 'readonly' : '' }}/>
+                                </div>
+                                <button class="btn btn-primary btn-md" name="submit_ticket" type="submit" {{ ($ticket['price'] == 0) ? '' : 'disabled' }}>Accept ticket</button>
 
-                                    <div class="row">
-                                        <input id="insert_coins" type="text" name="insert_coins" placeholder="Insert coins" value="" />
-                                    </div>
-                                    <button class="btn btn-primary btn-md" name="submit_coins" type="submit" {{ ($ticket['price'] == 0) ? 'disabled' : '' }}>Accept coins</button>
+                                <div class="row">
+                                    <h4 class="payment_placeholder">Insert coins:</h4>
+                                    <input id="insert_coins" type="text" name="insert_coins" value="" />
+                                </div>
+                                <button class="btn btn-primary btn-md" name="submit_coins" type="submit" {{ ($ticket['price'] == 0) ? 'disabled' : '' }}>Accept coins</button>
 
-                                    <div class="row">
-                                        <input id="coin_refund" type="text" name="coin_refund" placeholder="Coin refund" value="{{ ($ticket['refund'] == 0) ? '' : $ticket['refund'] }}" readonly/>
-                                    </div>
+                                <div class="row">
+                                    <h4 class="payment_placeholder">Coin refund:</h4>
+                                    <input id="coin_refund" type="text" name="coin_refund" value="{{ ($ticket['refund'] == 0) ? '' : $ticket['refund'] }}" readonly/>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
         @elseif($status['entrance'] == 5)
                     <div class="panel panel-default service">
@@ -186,7 +189,8 @@
                             <div class="payment-device">
                                 <div class="panel panel-primary">
                                     <div class="row">
-                                        <input id="exit_insert_ticket" type="text" name="exit_insert_ticket" placeholder="Insert ticket" value="{{ ($exit_ticket_check) ? $exit_ticket_check : '' }}" {{ ($exit_ticket_check) ? 'readonly' : '' }}/>
+                                        <h4 class="payment_placeholder">Insert ticket:</h4>
+                                        <input id="exit_insert_ticket" type="text" name="exit_insert_ticket" value="{{ ($exit_ticket_check) ? $exit_ticket_check : '' }}" {{ ($exit_ticket_check) ? 'readonly' : '' }}/>
                                     </div>
                                     <button class="btn btn-primary btn-md" name="exit_submit_ticket" type="submit">Accept ticket</button>
                                 </div>

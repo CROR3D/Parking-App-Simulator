@@ -17,10 +17,10 @@
 
     <div class="jumbotron text-center">
         <h3 class="text-danger">TRENUTNA POZICIJA</h3>
-        <h4 class="bg-primary">Plava boja označava gdje se trenutno nalazimo</h4>
+        <h4 class="bg-primary">Plava boja označava gdje se trenutno nalazimo (na ulaznoj rampi trenutno)</h4>
         <nav class="position-helper" aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li data-rel="1">Entrance Barrier</li>
+                <li class="blue" data-rel="1">Entrance Barrier</li>
                 <li data-rel="2">Parking</li>
                 <li data-rel="3">Payment Device</li>
                 <li data-rel="4">Exit Barrier</li>
@@ -108,6 +108,32 @@
                                 </tr>
                             </table>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default service">
+                <h3 class="text-danger text-center">UBRZAVANJE VREMENA</h3>
+                <h4 class="bg-primary text-center">Ako želite preskočiti vrijeme na parkiralištu unesite vrijednosti</h4>
+                <h4 class="bg-primary text-center">Pri ubacivanju karte u uređaj za plaćanje cijena će se izračunati ovisno o unesenim vrjednostima</h4>
+                <div class="panel-body">
+                    <div class="form-group middle">
+                          Days:
+                          <div class="time_input">
+                              <input type="text" class="form-control time" maxlength="2"/>
+                          </div>
+                          Hours:
+                          <div class="time_input">
+                              <input type="text" class="form-control time" maxlength="2"/>
+                          </div>
+                          Minutes:
+                          <div class="time_input">
+                              <input type="text" class="form-control time" maxlength="2"/>
+                          </div>
+                    </div>
+                    <div class="form-group middle">
+                        Total time:
+                        <input type="text" class="form-control total_time" readonly/>
                     </div>
                 </div>
             </div>

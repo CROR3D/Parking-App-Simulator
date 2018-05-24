@@ -21,7 +21,6 @@ class CreateTicketsTable extends Migration
             $table->boolean('paid')->default(false);
             $table->dateTime('entrance_time')->nullable();
             $table->dateTime('bonus_time')->nullable();
-            $table->decimal('price', 8, 2)->nullable();
 
             $table->engine = 'InnoDB';
             $table->unique('code');

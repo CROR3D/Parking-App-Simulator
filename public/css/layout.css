@@ -85,11 +85,6 @@ th, td {
     border-bottom: 1px solid lightgrey;
 }
 
-.payment_device .row {
-    margin: 15px 0;
-    width: 100%;
-}
-
 .exit_ramp .row{
     margin: 15px 0;
     width: 100%;
@@ -188,7 +183,7 @@ th, td {
   text-align: center;
   height: 35px;
   line-height: 35px;
-  font-size: 20px;
+  font-size: 15px;
 }
 
 #payment_screen {
@@ -201,7 +196,7 @@ th, td {
 
 #insert_ticket, #insert_coins, #coin_refund, #exit_insert_ticket {
     width: 50%;
-    margin: 50px 0 15px 0;
+    margin: 15px 0 15px 0;
 }
 
 .num-row {
@@ -248,6 +243,11 @@ th, td {
 .payment-device button{
     margin-top: 10px;
     margin-bottom: 40px;
+}
+
+.payment_placeholder {
+    margin-top: 35px;
+    font-size: 15px;
 }
 
 .btn-group-justified:last-of-type {
@@ -327,7 +327,7 @@ th, td {
         float: left;
     }
 
-    #insert_ticket, #insert_coins, #coin_refund {
+    #insert_ticket, #insert_coins, #coin_refund, #exit_insert_ticket {
         width: 100%;
     }
 }

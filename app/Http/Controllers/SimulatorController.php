@@ -166,7 +166,8 @@ class SimulatorController extends Controller
 
                 $got_ticket = 3;
                 $ticket_check = $_POST['insert_ticket'];
-                $my_ticket = Ticket::where('code', $ticket_check)->first();
+                $my_ticket = Ticket::where('code', $ticket_check)->where('parking_id', $parking->id)->first();
+
                 $time_lapse = [
                     'days' => $_POST['parking_days'],
                     'hours' => $_POST['parking_hours'],
@@ -189,8 +190,6 @@ class SimulatorController extends Controller
                     // BROJ DANA koliko je automobil na parkiralištu
                     $date1 = date_create(date('Y-m-d h:m:s', $entrance));
                     $date2 = date_create(date('Y-m-d h:m:s', $now));
-                    $date3 = date_diff($date1,$date2);
-                    $days_count = $date3->days;
 
                     // PRETVARANJE RADNOG VREMENA u brojeve (za usporedbu s vremenom na karti)
                     $working = explode('-', $parking->working_time);
@@ -213,19 +212,16 @@ class SimulatorController extends Controller
                     $entr_m = (int) $entr_arr[1];
                     $entr = number_format($entr_time, 2);
                     $paid_end = date('H:i', $now);
-                    $paid_time = str_replace(":", ".", $paid_end);
-                    $paid_arr = explode(".", $paid_time);
-                    $paid_h = (int) $paid_arr[0];
-                    $paid_m = (int) $paid_arr[1];
-                    $paid_end = number_format($paid_time, 2);
 
                     $hours = 0;
 
                     // TIME LAPSE
                     if(array_filter($time_lapse)) {
                         $days_count = ($time_lapse['days']) ? $time_lapse['days'] : 0;
+                        $days = ($time_lapse['days']) ? $time_lapse['days'] : 0;
                         $total_hours = ($time_lapse['hours']) ? $time_lapse['hours'] : 0;
                         $minutes = ($time_lapse['minutes']) ? $time_lapse['minutes'] : 0;
+                        $date2 = date_create(date('Y-m-d h:m:s', strtotime('+' . $days . ' days, +' . $total_hours . ' hours, +' . $minutes . ' minutes')));
 
                         if($minutes >= 60) {
                             $add_hours = floor($minutes / 60);
@@ -240,40 +236,62 @@ class SimulatorController extends Controller
                         if($total_hours >= 24) {
                             $add_days = floor($total_hours / 24);
                             $total_hours = $total_hours % 24;
-                            $days_count = $days_count + $add_days;
+                            $days = $days_count + $add_days;
                         }
 
                         $paid_end = date("H:i", strtotime('+' . $total_hours . ' hours'));
-                        $paid_time = str_replace(":", ".", $paid_end);
-                        $paid_arr = explode(".", $paid_time);
-                        $paid_h = (int) $paid_arr[0];
-                        $paid_m = (int) $paid_arr[1];
-                        $paid_end = number_format($paid_time, 2);
 
-                        $time_lapse['total'] = $days_count . ' dana, ' . $total_hours . ' sati i ' . $minutes . ' minuta.';
+                        $time_lapse['total'] = $days . ' days, ' . $total_hours . ' hours and ' . $minutes . ' minutes.';
                     }
 
-                    //dd('Start Working Time', $start, $start_h, $start_m, 'End Working Time', $end, $end_h, $end_m, 'Entrance Time', $entr, $entr_h, $entr_m, 'Exit Time', $paid_end, $paid_h, $paid_m);
+                    $paid_time = str_replace(":", ".", $paid_end);
+                    $paid_arr = explode(".", $paid_time);
+                    $paid_h = (int) $paid_arr[0];
+                    $paid_m = (int) $paid_arr[1];
+                    $paid_end = number_format($paid_time, 2);
+
+                    $date3 = date_diff($date1,$date2);
+                    $days_count = $date3->days + 1;
 
                     // IZRAČUN KOLIKO JE AUTOMOBIL BIO SATI U NAPLATNOM VREMENU PARKIRALIŠTA (trebao bi naći jednostavniji i bolji način za ovo)
-                    for($i = 0; $i <= $days_count; $i++) {
-                        if($days_count == 0) {
+                    for($i = 1; $i <= $days_count; $i++) {
+                        if($days_count == 1) {
                             if($entr >= $start && $entr <= $end) {
                                 if($paid_end < $end) {
-                                    $add = (float) (($paid_h - $entr_h) . '.' . ($paid_m - $entr_m));
-                                    $hours += $add;
+                                    if($paid_m > $entr_m) {
+                                        $add = (float) (($paid_h - $entr_h) . '.' . ($paid_m - $entr_m));
+                                    } else {
+                                        $min = (60 - $entr_m) + $paid_m;
+                                        $add = (float) (($paid_h - $entr_h) . '.' . $min);
+                                    }
+                                    $hours += ceil($add);
                                 } else {
-                                    $add = (float) (($end_h - $entr_h) . '.' . ($end_m - $entr_m));
-                                    $hours += $add;
+                                    if($end_m > $entr_m) {
+                                        $add = (float) (($end_h - $entr_h) . '.' . ($end_m - $entr_m));
+                                    } else {
+                                        $min = (60 - $entr_m) + $end_m;
+                                        $add = (float) (($end_h - $entr_h) . '.' . $min);
+                                    }
+                                    $hours += ceil($add);
                                 }
                             } else {
                                 if($entr < $start) {
                                     if($paid_end < $end) {
-                                        $add = (float) (($paid_h - $start_h) . '.' . ($paid_m - $start_m));
-                                        $hours += $add;
+                                        if($paid_m > $start_m) {
+                                            $add = (float) (($paid_h - $start_h) . '.' . ($paid_m - $start_m));
+                                        } else {
+                                            $min = (60 - $start_m) + $paid_m;
+                                            $add = (float) (($paid_h - $start_h) . '.' . $min);
+                                        }
+                                        $hours += ceil($add);
                                     } else {
-                                        $add = (float) (($end_h - $start_h) . '.' . ($end_m - $start_m));
-                                        $hours += $add;
+                                        if($end_m > $start_m) {
+                                            $add = (float) (($end_h - $start_h) . '.' . ($end_m - $start_m));
+                                        } else {
+                                            $min = (60 - $start_m) + $end_m;
+                                            $add = (float) (($end_h - $start_h) . '.' . $min);
+                                        }
+                                        $hours += ceil($add);
                                     }
                                 } else {
                                     break;
@@ -281,32 +299,42 @@ class SimulatorController extends Controller
                             }
                             break;
                         } else {
-                            if($i == 0) {
+                            if($i == 1) {
                                 if($entr >= $start && $entr <= $end) {
-                                    $add = (float) (($end_h - $entr_h) . '.' . ($end_m - $entr_m));
-                                    $hours += $add;
+                                    if($end_m > $entr_m) {
+                                        $add = (float) (($end_h - $entr_h) . '.' . ($end_m - $entr_m));
+                                    } else {
+                                        $min = (60 - $entr_m) + $end_m;
+                                        $add = (float) (($end_h - $entr_h) . '.' . $min);
+                                    }
+                                    $hours += ceil($add);
                                 } else {
                                     if($entr < $start) {
-                                        $add = (float) (($end_h - $start_h) . '.' . ($end_m - $start_m));
-                                        $hours += $add;
+                                        if($end_m > $start_m) {
+                                            $add = (float) (($end_h - $start_h) . '.' . ($end_m - $start_m));
+                                        } else {
+                                            $min = (60 - $start_m) + $end_m;
+                                            $add = (float) (($end_h - $start_h) . '.' . $min);
+                                        }
+                                        $hours += ceil($add);
                                     }
                                 }
                             }
 
-                            if($i > 0 && $i < $days_count) {
+                            if($i > 1 && $i < $days_count) {
                                 $add1 = (float) (($end_h - $start_h) . '.' . ($end_m - $start_m));
-                                $hours += $add1;
+                                $hours += ceil($add1);
                             }
 
                             if($i == $days_count) {
                                 if($paid_end >= $start && $paid_end <= $end) {
                                     $add2 = (float) (($paid_h - $start_h) . '.' . ($paid_m - $start_m));
-                                    $hours += $add2;
+                                    $hours += ceil($add2);
                                 } elseif($paid_end < $start) {
                                     $hours += 0;
                                 } else {
                                     $add2 = (float) (($end_h - $start_h) . '.' . ($end_m - $start_m));
-                                    $hours += $add2;
+                                    $hours += ceil($add2);
                                 }
                             }
                         }
