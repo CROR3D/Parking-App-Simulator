@@ -31,6 +31,7 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <li class="{{ Request::is('/dashboard') ? 'active' : '' }}"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+                            <li class="{{ Request::is('/simulator') ? 'active' : '' }}"><a href="{{ route('simulator') }}">Simulator</a></li>
                             @if (Sentinel::check() && !Sentinel::inRole('administrator'))
                             <li class="{{ Request::is('/view') ? 'active' : '' }}"><a href="{{ route('view') }}">View Parking</a></li>
                             @endif
