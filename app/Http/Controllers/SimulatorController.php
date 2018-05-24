@@ -59,6 +59,11 @@ class SimulatorController extends Controller
                 if($spots_taken < $spots_total) {
 
                     $value = rand();
+
+                    while(Ticket::where('code', $value)->first()) {
+                        $value = rand();
+                    }
+
                     $got_ticket = 1;
 
                     return redirect()->route('parking_select', ['slug' => $slug])->with(['got_ticket' => $got_ticket, 'value' => $value]);

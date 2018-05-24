@@ -55,7 +55,9 @@
                 </div>
                 <div class="panel-footer">
                     <form accept-charset="UTF-8" role="form" method="post" action="{{ route('view_forms', ['slug' => $parking->slug]) }}">
-                        <button class="btn {{ ($has_reservation && $reservation['parking'] === $parking->id) ? 'btn-danger' : 'btn-primary' }} btn-lg" name="{{ ($has_reservation && $reservation['parking'] === $parking->id) ? 'reservation_true' : 'reservation' }}" type="submit">
+                        <button class="btn {{ ($has_reservation && $reservation['parking'] === $parking->id) ? 'btn-danger' : 'btn-primary' }} btn-lg"
+                            name="{{ ($has_reservation && $reservation['parking'] === $parking->id) ? 'reservation_true' : 'reservation' }}" type="submit"
+                            {{ ($error) ? 'disabled' : '' }}>
                             {{ ($has_reservation && $reservation['parking'] === $parking->id) ? 'Cancel reservation' : 'Make reservation' }}
                         </button>
                         {{ csrf_field() }}

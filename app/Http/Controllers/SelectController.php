@@ -7,6 +7,7 @@ use App\Models\Parking;
 use App\Models\Ticket;
 use App\Models\Reservation;
 use App\Models\User;
+use App\Models\Error;
 use Carbon\Carbon;
 use Sentinel;
 use Route;
@@ -40,6 +41,11 @@ class SelectController extends Controller
                 Reservation::where('user_id', $value->user_id)->delete();
             }
         }
+
+        // brisanje grešaka ako postoje u Error table
+
+        Error::where('expire_time', '<', $expire_time)->delete();
+
     }
 
     public function select()
@@ -153,6 +159,7 @@ class SelectController extends Controller
         ];
 
         $total = null;
+        $error = false;
         $ticket_check = null;
         $exit_ticket_check = null;
 
@@ -174,6 +181,8 @@ class SelectController extends Controller
 
                 $has_reservation = true;
             }
+
+            if(Error::where(['user_id' => $user_id, 'about' => 'cancellation'])->first()) $error = true;
         }
 
         // SLANJE PODATAKA PREKO SessionHelpera za rad Simulatora
@@ -214,6 +223,7 @@ class SelectController extends Controller
             'count' => $count,
             'ticket' => $ticket,
             'total' => $total,
+            'error' => $error,
             'ticket_check' => $ticket_check,
             'exit_ticket_check' => $exit_ticket_check
         ];

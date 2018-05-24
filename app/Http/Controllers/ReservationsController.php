@@ -7,6 +7,7 @@ use App\Models\Ticket;
 use App\Models\Parking;
 use App\Models\Reservation;
 use App\Models\User;
+use App\Models\Error;
 use Carbon\Carbon;
 use Sentinel;
 
@@ -40,6 +41,10 @@ class ReservationsController extends Controller
                 Reservation::where('user_id', $value->user_id)->delete();
             }
         }
+
+        // brisanje grešaka ako postoje u Error table
+
+        Error::where('expire_time', '<', $expire_time)->delete();
     }
 
     public function reservations($slug)
@@ -64,12 +69,18 @@ class ReservationsController extends Controller
 
                 $check_spots = Ticket::where('user_id', $user_id)->first();
 
+                $code = sprintf('%04d', rand(0000, 9999));
+
+                while(Reservation::where('code', $code)->where('parking_id', $parking->id)->first()) {
+                    $code = sprintf('%04d', rand(0000, 9999));
+                }
+
                 if($spots_taken < $spots_total && !$check_spots) {
 
                     $reservation = array(
                         'user_id' => $user_id,
                         'parking_id' => $parking->id,
-                        'code' => sprintf('%04d', rand(0000, 9999)),
+                        'code' => $code,
                         'cancellation' => Carbon::now()->addMinute(10),
                         'expire_time' => Carbon::now()->addMinute(30)
                     );
@@ -82,7 +93,7 @@ class ReservationsController extends Controller
 
                         session()->flash('info', 'You don\'t have enough money on your account to make this reservation!');
 
-                    }else {
+                    } else {
 
                         $new_reservation = new Reservation;
                         $new_reservation->saveReservation($reservation);
@@ -134,6 +145,15 @@ class ReservationsController extends Controller
                     $refund = false;
 
                 }
+
+                $error = array(
+                    'user_id' => $user_id,
+                    'about' => 'cancellation',
+                    'expire_time' => Carbon::now()->addMinute(10)
+                );
+
+                $new_error = new Error;
+                $new_error->saveError($error);
 
                 $user->updateUser($profile);
                 $user->save();

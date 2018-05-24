@@ -26,16 +26,16 @@ PARKING SIMULATOR
 
 Za potrebe testiranja ove aplikacije izradio sam simulator ulaska i izlaska vozila (i osoba) iz parkirališta
 
-    - RAD U SIMULATORU
-        Pogledajte HELP kad uđete u simulator.
+- RAD U SIMULATORU
+Pogledajte HELP kad uđete u simulator.
 
-    - OGRANIČENJA I KAZNE
-        Ukoliko je osoba platila kartu ali se odlučila još zadržati na parkingu s vozilom (recimo da je netko platio kartu ali je otišao šetati po gradu jos 2 sata) na validaciji na IZLAZNOJ RAMPI
-        validator će vidjeti da je prošlo više od 10 minuta koje osoba ima da napusti parking te će resetirati vrijeme karte na prošlo vrijeme plaćanje te će osoba trebati ponovo platiti kartu.
+- OGRANIČENJA I KAZNE
+Ukoliko je osoba platila kartu ali se odlučila još zadržati na parkingu s vozilom (recimo da je netko platio kartu ali je otišao šetati po gradu jos 2 sata) na validaciji na IZLAZNOJ RAMPI
+validator će vidjeti da je prošlo više od 10 minuta koje osoba ima da napusti parking te će resetirati vrijeme karte na prošlo vrijeme plaćanje te će osoba trebati ponovo platiti kartu.
 
-    - KARTE I PLAĆANJA
-        Kartu odnosno njeno fizičko postojanje zamjenjuje KOD od velikog niza znamenki (koji možete kopirati sa strane ili pogledati u bazu da ne zaboravite).
-        Novac zamjenjuje jednostavan upis brojeva (ako upišete broj 7 znači da ste ubacili 7 kn).
+- KARTE I PLAĆANJA
+Kartu odnosno njeno fizičko postojanje zamjenjuje KOD od velikog niza znamenki (koji možete kopirati sa strane ili pogledati u bazu da ne zaboravite).
+Novac zamjenjuje jednostavan upis brojeva (ako upišete broj 7 znači da ste ubacili 7 kn).
 
 
 ## APLIKACIJA (eng)
