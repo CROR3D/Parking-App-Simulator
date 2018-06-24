@@ -9,6 +9,7 @@ use App\Models\Parking;
 use App\Models\Temp_User;
 use App\Models\User;
 use Carbon\Carbon;
+use DateTime;
 use Sentinel;
 
 class SimulatorController extends Controller
@@ -188,13 +189,21 @@ class SimulatorController extends Controller
                 }
 
                 if($ticket_check && $is_paid == false) {
-                    $entrance = strtotime($my_ticket->entrance_time);
-                    $now = strtotime(Carbon::now()->toDateTimeString());
+                    $entrance = Carbon::createFromTimeString($my_ticket->entrance_time);
+                    $now = Carbon::now();
+
                     $price_hour = $parking->price_per_hour;
 
                     // BROJ DANA koliko je automobil na parkiralištu
-                    $date1 = date_create(date('Y-m-d h:m:s', $entrance));
-                    $date2 = date_create(date('Y-m-d h:m:s', $now));
+                    $days_e = $entrance->diffInDays($now);
+
+                    $working = explode('-', $parking->working_time);
+                    $start_time = new DateTime($working[0]);
+                    $end_time = new DateTime($working[1]);
+
+                    $interval = $start_time->diff($end_time);
+
+                    dd($now, $entrance, $days_e, $start_time, $end_time, $interval->format("%H"));
 
                     // PRETVARANJE RADNOG VREMENA u brojeve (za usporedbu s vremenom na karti)
                     $working = explode('-', $parking->working_time);
