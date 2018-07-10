@@ -175,7 +175,7 @@ class SelectController extends Controller
             $user_id = Sentinel::getUser()->id;
 
             if($res = Reservation::where('user_id', $user_id)->first()) {
-                $reservation['code'] = $res->code;
+                $reservation['code'] = sprintf('%04d', $res->code);
                 $reservation['expire'] = $res->expire_time;
                 $reservation['parking'] = $res->parking_id;
 

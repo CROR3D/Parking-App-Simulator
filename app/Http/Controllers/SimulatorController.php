@@ -33,8 +33,10 @@ class SimulatorController extends Controller
 
                     $code = $_POST['screen'];
 
-                    if(Reservation::where('code', $code)->where('parking_id', $parking->id)->first()) {
-                        $user_id = Reservation::where('code', $code)->where('parking_id', $parking->id)->first()->user_id;
+                    $res_exists = Reservation::where('code', $code)->where('parking_id', $parking->id)->first();
+
+                    if($res_exists && strlen((string) $code) == 4) {
+                        $user_id = $res_exists->user_id;
 
                         $value = $user_id . 'R' . rand();
                         $got_ticket = 1;
@@ -194,16 +196,24 @@ class SimulatorController extends Controller
 
                     $price_hour = $parking->price_per_hour;
 
-                    // BROJ DANA koliko je automobil na parkiralištu
-                    $days_e = $entrance->diffInDays($now);
+                    $days_e = $entrance->diffInDays($now); // BROJ DANA koliko je automobil na parkiralištu
 
                     $working = explode('-', $parking->working_time);
-                    $start_time = new DateTime($working[0]);
-                    $end_time = new DateTime($working[1]);
+                    $start_time = new DateTime($working[0]); // POČETAK RADNOG VREMENA
+                    $end_time = new DateTime($working[1]);  // KRAJ RADNOG VREMENA
 
-                    $interval = $start_time->diff($end_time);
+                    $interval = $start_time->diff($end_time); // BROJ SATI koliko je automobil na parkiralištu
 
-                    dd($now, $entrance, $days_e, $start_time, $end_time, $interval->format("%H"));
+                    $timer = $entrance->diff($now)->format('%H:%I');
+
+                    dd(
+                        'Now:', $now,
+                        'Entrance:', $entrance,
+                        'Days:', $days_e,
+                        'Start Time:', $start_time,
+                        'End Time:', $end_time,
+                        'Hours:', $interval->format("%H"),
+                        'total time Time:', $timer);
 
                     // PRETVARANJE RADNOG VREMENA u brojeve (za usporedbu s vremenom na karti)
                     $working = explode('-', $parking->working_time);
