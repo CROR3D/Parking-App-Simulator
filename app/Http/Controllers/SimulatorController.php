@@ -9,7 +9,6 @@ use App\Models\Parking;
 use App\Models\Temp_User;
 use App\Models\User;
 use Carbon\Carbon;
-use DateTime;
 use Sentinel;
 
 class SimulatorController extends Controller
@@ -191,61 +190,33 @@ class SimulatorController extends Controller
                 }
 
                 if($ticket_check && $is_paid == false) {
+                    // VRIJEME ULAZA AUTOMOBILA
                     $entrance = Carbon::createFromTimeString($my_ticket->entrance_time);
+
+                    // VRIJEME PLAĆANJA KARTE
                     $now = Carbon::now();
 
+                    $working = explode('-', $parking->working_time);
+
+                    // POČETAK RADNOG VREMENA
+                    $start_time = Carbon::createFromFormat('H:i', $working[0]);
+
+                    // KRAJ RADNOG VREMENA
+                    $end_time = Carbon::createFromFormat('H:i', $working[1]);
+
+                    // CIJENA KARTE
                     $price_hour = $parking->price_per_hour;
 
-                    $days_e = $entrance->diffInDays($now); // BROJ DANA koliko je automobil na parkiralištu
-
-                    $working = explode('-', $parking->working_time);
-                    $start_time = new DateTime($working[0]); // POČETAK RADNOG VREMENA
-                    $end_time = new DateTime($working[1]);  // KRAJ RADNOG VREMENA
-
-                    $interval = $start_time->diff($end_time); // BROJ SATI koliko je automobil na parkiralištu
-
-                    $timer = $entrance->diff($now)->format('%H:%I');
-
-                    dd(
-                        'Now:', $now,
-                        'Entrance:', $entrance,
-                        'Days:', $days_e,
-                        'Start Time:', $start_time,
-                        'End Time:', $end_time,
-                        'Hours:', $interval->format("%H"),
-                        'total time Time:', $timer);
-
-                    // PRETVARANJE RADNOG VREMENA u brojeve (za usporedbu s vremenom na karti)
-                    $working = explode('-', $parking->working_time);
-                    $start_time = str_replace(":", ".", $working[0]);
-                    $start_arr = explode(".", $start_time);
-                    $start_h = (int) $start_arr[0];
-                    $start_m = (int) $start_arr[1];
-                    $end_time = str_replace(":", ".", $working[1]);
-                    $end_arr = explode(".", $end_time);
-                    $end_h = (int) $end_arr[0];
-                    $end_m = (int) $end_arr[1];
-                    $start = number_format($start_time, 2);
-                    $end = number_format($end_time, 2);
-
-                    // PRETVARANJE VREMENA NA KARTI u brojeve (za usporedbu s radnim vremenom)
-                    $entr = date('H:i', $entrance);
-                    $entr_time = str_replace(":", ".", $entr);
-                    $entr_arr = explode(".", $entr_time);
-                    $entr_h = (int) $entr_arr[0];
-                    $entr_m = (int) $entr_arr[1];
-                    $entr = number_format($entr_time, 2);
-                    $paid_end = date('H:i', $now);
-
+                    // BROJ NAPLATNIH SATI i minuta
                     $hours = 0;
+                    $add_minutes = 0;
 
                     // TIME LAPSE
                     if(array_filter($time_lapse)) {
                         $days_count = ($time_lapse['days']) ? $time_lapse['days'] : 0;
-                        $days = ($time_lapse['days']) ? $time_lapse['days'] : 0;
                         $total_hours = ($time_lapse['hours']) ? $time_lapse['hours'] : 0;
                         $minutes = ($time_lapse['minutes']) ? $time_lapse['minutes'] : 0;
-                        $date2 = date_create(date('Y-m-d h:m:s', strtotime('+' . $days . ' days, +' . $total_hours . ' hours, +' . $minutes . ' minutes')));
+                        $date2 = date_create(date('Y-m-d h:m:s', strtotime('+' . $days_count . ' days, +' . $total_hours . ' hours, +' . $minutes . ' minutes')));
 
                         if($minutes >= 60) {
                             $add_hours = floor($minutes / 60);
@@ -260,111 +231,45 @@ class SimulatorController extends Controller
                         if($total_hours >= 24) {
                             $add_days = floor($total_hours / 24);
                             $total_hours = $total_hours % 24;
-                            $days = $days_count + $add_days;
+                            $days_count = $days_count + $add_days;
                         }
 
-                        $paid_end = date("H:i", strtotime('+' . $total_hours . ' hours'));
+                        function plural($x) {
+                            if($x != 1) return 's';
+                        }
 
-                        $time_lapse['total'] = $days . ' days, ' . $total_hours . ' hours and ' . $minutes . ' minutes.';
+                        $now = $now->addHours($total_hours)->addMinutes($minutes);
+
+                        $time_lapse['total'] = $days_count . ' day' . plural($days_count) . ', ' . $total_hours  . ' hour' . plural($total_hours) . ', and ' . $minutes . ' minute' . plural($total_hours) . '.';
                     }
 
-                    $paid_time = str_replace(":", ".", $paid_end);
-                    $paid_arr = explode(".", $paid_time);
-                    $paid_h = (int) $paid_arr[0];
-                    $paid_m = (int) $paid_arr[1];
-                    $paid_end = number_format($paid_time, 2);
+                    // IZRAČUN KOLIKO JE NAPLATNIH SATI automobil bio na parkiralištu
+                    while ($entrance <= $now) {
 
-                    $date3 = date_diff($date1,$date2);
-                    $days_count = $date3->days + 1;
+                        $hour = $entrance->format('H:i');
+                        $time = Carbon::createFromFormat('H:i', $hour);
 
-                    // IZRAČUN KOLIKO JE AUTOMOBIL BIO SATI U NAPLATNOM VREMENU PARKIRALIŠTA (trebao bi naći jednostavniji i bolji način za ovo)
-                    for($i = 1; $i <= $days_count; $i++) {
-                        if($days_count == 1) {
-                            if($entr >= $start && $entr <= $end) {
-                                if($paid_end < $end) {
-                                    if($paid_m > $entr_m) {
-                                        $add = (float) (($paid_h - $entr_h) . '.' . ($paid_m - $entr_m));
-                                    } else {
-                                        $min = (60 - $entr_m) + $paid_m;
-                                        $add = (float) (($paid_h - $entr_h) . '.' . $min);
-                                    }
-                                    $hours += ceil($add);
-                                } else {
-                                    if($end_m > $entr_m) {
-                                        $add = (float) (($end_h - $entr_h) . '.' . ($end_m - $entr_m));
-                                    } else {
-                                        $min = (60 - $entr_m) + $end_m;
-                                        $add = (float) (($end_h - $entr_h) . '.' . $min);
-                                    }
-                                    $hours += ceil($add);
-                                }
+                        if($time >= $start_time && $time < $end_time) {
+
+                            if($start_time->diffInMinutes($time) < 60) {
+                                $add_minutes += $start_time->diffInMinutes($time);
+                            } else if($end_time->diffInMinutes($time) < 60) {
+                                $hours++;
+                                $add_minutes += $end_time->diffInMinutes($time);
                             } else {
-                                if($entr < $start) {
-                                    if($paid_end < $end) {
-                                        if($paid_m > $start_m) {
-                                            $add = (float) (($paid_h - $start_h) . '.' . ($paid_m - $start_m));
-                                        } else {
-                                            $min = (60 - $start_m) + $paid_m;
-                                            $add = (float) (($paid_h - $start_h) . '.' . $min);
-                                        }
-                                        $hours += ceil($add);
-                                    } else {
-                                        if($end_m > $start_m) {
-                                            $add = (float) (($end_h - $start_h) . '.' . ($end_m - $start_m));
-                                        } else {
-                                            $min = (60 - $start_m) + $end_m;
-                                            $add = (float) (($end_h - $start_h) . '.' . $min);
-                                        }
-                                        $hours += ceil($add);
-                                    }
-                                } else {
-                                    break;
-                                }
-                            }
-                            break;
-                        } else {
-                            if($i == 1) {
-                                if($entr >= $start && $entr <= $end) {
-                                    if($end_m > $entr_m) {
-                                        $add = (float) (($end_h - $entr_h) . '.' . ($end_m - $entr_m));
-                                    } else {
-                                        $min = (60 - $entr_m) + $end_m;
-                                        $add = (float) (($end_h - $entr_h) . '.' . $min);
-                                    }
-                                    $hours += ceil($add);
-                                } else {
-                                    if($entr < $start) {
-                                        if($end_m > $start_m) {
-                                            $add = (float) (($end_h - $start_h) . '.' . ($end_m - $start_m));
-                                        } else {
-                                            $min = (60 - $start_m) + $end_m;
-                                            $add = (float) (($end_h - $start_h) . '.' . $min);
-                                        }
-                                        $hours += ceil($add);
-                                    }
-                                }
-                            }
-
-                            if($i > 1 && $i < $days_count) {
-                                $add1 = (float) (($end_h - $start_h) . '.' . ($end_m - $start_m));
-                                $hours += ceil($add1);
-                            }
-
-                            if($i == $days_count) {
-                                if($paid_end >= $start && $paid_end <= $end) {
-                                    $add2 = (float) (($paid_h - $start_h) . '.' . ($paid_m - $start_m));
-                                    $hours += ceil($add2);
-                                } elseif($paid_end < $start) {
-                                    $hours += 0;
-                                } else {
-                                    $add2 = (float) (($end_h - $start_h) . '.' . ($end_m - $start_m));
-                                    $hours += ceil($add2);
-                                }
+                                $hours++;
                             }
                         }
+
+                        $entrance->addHour();
                     }
 
-                    if ($hours == 0) $hours = 1;
+                    $h = floor($add_minutes / 60);
+                    if(($add_minutes % 60) > 0) $hours += 1;
+
+                    $hours = $hours + $h;
+
+                    if ($hours < 1) $hours = 1;
                     $price = ceil($hours) * $price_hour;
 
                     $price = $price . ' kn';
