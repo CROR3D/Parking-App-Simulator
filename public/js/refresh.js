@@ -1,18 +1,12 @@
 $(document).ready(function() {
 
-    if($('#ticket-screen').val()) {
-        $(window).scrollTop($(document).height());
+    if($('#ticket-screen').val() || $('#insert_ticket').val() || $('#insert_coins').val() || $('#exit_insert_ticket').val()) {
+        $.ajax({ url: window.location.href,
+            context: document.body,
+            success: function() {
+                $(window).scrollTop($(document).height());
+            }
+        });
     }
 
-    if($('#insert_ticket').val()) {
-        $(window).scrollTop($(document).height());
-    }
-
-    if($('#insert_coins').val()) {
-        $(window).scrollTop($(document).height());
-    }
-
-    if($('#exit_insert_ticket').val()) {
-        $(window).scrollTop($(document).height());
-    }
 });

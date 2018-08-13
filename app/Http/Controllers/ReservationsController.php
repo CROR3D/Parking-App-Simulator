@@ -14,8 +14,54 @@ use Sentinel;
 class ReservationsController extends Controller
 {
 
+    private $slug;
+    private $parking;
+    private $spots_total;
+    private $spots_current;
+    private $spots_reserved;
+    private $spots_taken;
+    private $parking_id;
+    private $reservation_price;
+    private $user_id;
+    private $penalty_price;
+    private $user;
+    private $account;
+
     public function __construct()
     {
+        return self::deleteExpiredReservations();
+    }
+
+    public function reservations($slug)
+    {
+
+        $this->slug = $slug;
+        $this->parking = Parking::where('slug', $slug)->first();
+        $this->spots_total = $this->parking->spots;
+        $this->spots_current = Ticket::where('parking_id', $this->parking->id)->count();
+        $this->spots_reserved = Reservation::where('parking_id', $this->parking->id)->count();
+        $this->spots_taken = $this->spots_current + $this->spots_reserved;
+        $this->parking_id = $this->parking->id;
+        $this->reservation_price = $this->parking->price_of_reservation;
+
+        $this->user_id = Sentinel::getUser()->id;
+        $this->reservation_price = $this->parking->price_of_reservation;
+        $this->penalty_price = $this->parking->price_of_reservation_penalty;
+        $this->user = User::findOrFail($this->user_id);
+        $this->account = $this->user->account;
+
+        switch(true) {
+            case(isset($_POST['reservation'])):
+                return $this->createReservation();
+                break;
+
+            case(isset($_POST['reservation_true'])):
+                return $this->cancelReservation();
+                break;
+        }
+    }
+
+    public static function deleteExpiredReservations() {
 
         // PROVJERA POSTOJE LI REZERVACIJE koje su istekle (brišu se ako postoje) i naplata ako nisu validirane u zadanom roku
 
@@ -47,128 +93,106 @@ class ReservationsController extends Controller
         Error::where('expire_time', '<', $expire_time)->delete();
     }
 
-    public function reservations($slug)
-    {
+    private function createReservation() {
 
-        $parking = Parking::where('slug', $slug)->first();
-        $spots_total = $parking->spots;
-        $spots_current = Ticket::where('parking_id', $parking->id)->count();
-        $spots_reserved = Reservation::where('parking_id', $parking->id)->count();
-        $spots_taken = $spots_current + $spots_reserved;
-        $parking_id = $parking->id;
-        $reservation_price = $parking->price_of_reservation;
+        $check_spots = Ticket::where('user_id', $this->user_id)->first();
 
-        $user_id = Sentinel::getUser()->id;
-        $reservation_price = $parking->price_of_reservation;
-        $penalty_price = $parking->price_of_reservation_penalty;
-        $user = User::findOrFail($user_id);
-        $account = $user->account;
+        $code = sprintf('%04d', rand(0000, 9999));
 
-        switch(true) {
-            case(isset($_POST['reservation'])):
-
-                $check_spots = Ticket::where('user_id', $user_id)->first();
-
-                $code = sprintf('%04d', rand(0000, 9999));
-
-                while(Reservation::where('code', $code)->where('parking_id', $parking->id)->first()) {
-                    $code = sprintf('%04d', rand(0000, 9999));
-                }
-
-                if($spots_taken < $spots_total && !$check_spots) {
-
-                    $reservation = array(
-                        'user_id' => $user_id,
-                        'parking_id' => $parking->id,
-                        'code' => $code,
-                        'cancellation' => Carbon::now()->addMinute(10),
-                        'expire_time' => Carbon::now()->addMinute(30)
-                    );
-
-                    if(Reservation::where('user_id', $reservation['user_id'])->first()) {
-
-                        session()->flash('info', 'You already have reservation!');
-
-                    } elseif($account <= ($reservation_price + $penalty_price)) {
-
-                        session()->flash('info', 'You don\'t have enough money on your account to make this reservation!');
-
-                    } else {
-
-                        $new_reservation = new Reservation;
-                        $new_reservation->saveReservation($reservation);
-
-                        $user_acc = [
-                            'account' => $account - $reservation_price
-                        ];
-
-                        $user->updateUser($user_acc);
-                        $user->save();
-
-                        session()->flash('info', 'New reservation created in ' . $parking->city . ' (' . $parking->name . ')!');
-
-                    }
-
-                } elseif($check_spots) {
-
-                    session()->flash('error', 'Can\'t reserve spot! Your pressence is already located in ' . $parking->city . ' (' . $parking->name . ')!');
-
-                } else {
-
-                    session()->flash('error', 'This parking lot is full!');
-
-                }
-
-                return redirect()->route('parking_view', ['slug' => $slug]);
-
-            break;
-
-            case(isset($_POST['reservation_true'])):
-
-                $res = Reservation::where('user_id', $user_id)->first();
-                $cancellation = $res->cancellation;
-
-                if(Carbon::now() <= $cancellation) {
-
-                    $profile = [
-                        'account' => $account + $reservation_price
-                    ];
-
-                    $refund = true;
-
-                } else {
-
-                    $profile = [
-                        'account' => $account - $penalty_price
-                    ];
-
-                    $refund = false;
-
-                }
-
-                $error = array(
-                    'user_id' => $user_id,
-                    'about' => 'cancellation',
-                    'expire_time' => Carbon::now()->addMinute(10)
-                );
-
-                $new_error = new Error;
-                $new_error->saveError($error);
-
-                $user->updateUser($profile);
-                $user->save();
-
-                Reservation::where('user_id', Sentinel::getUser()->id)->delete();
-
-                if($refund) {
-                    session()->flash('info', 'Reservation canceled in ' . $parking->city . ' (' . $parking->name . ')! You got ' . $reservation_price . ' kn back.');
-                } else {
-                    session()->flash('info', 'Reservation canceled in ' . $parking->city . ' (' . $parking->name . ')! You got ' . $penalty_price . ' kn penalty.');
-                }
-
-                return redirect()->route('parking_view', ['slug' => $slug]);
-
-            break;
+        while(Reservation::where('code', $code)->where('parking_id', $this->parking->id)->first()) {
+            $code = sprintf('%04d', rand(0000, 9999));
         }
+
+        if($this->spots_taken < $this->spots_total && !$check_spots) {
+
+            $reservation = array(
+                'user_id' => $this->user_id,
+                'parking_id' => $this->parking->id,
+                'code' => $code,
+                'cancellation' => Carbon::now()->addMinute(10),
+                'expire_time' => Carbon::now()->addMinute(30)
+            );
+
+            if(Reservation::where('user_id', $reservation['user_id'])->first()) {
+
+                session()->flash('info', 'You already have reservation!');
+
+            } elseif($this->account <= ($this->reservation_price + $this->penalty_price)) {
+
+                session()->flash('info', 'You don\'t have enough money on your account to make this reservation!');
+
+            } else {
+
+                $new_reservation = new Reservation;
+                $new_reservation->saveReservation($reservation);
+
+                $user_acc = [
+                    'account' => $this->account - $this->reservation_price
+                ];
+
+                $this->user->updateUser($user_acc);
+                $this->user->save();
+
+                session()->flash('info', 'New reservation created in ' . $this->parking->city . ' (' . $this->parking->name . ')!');
+
+            }
+
+        } elseif($check_spots) {
+
+            session()->flash('error', 'Can\'t reserve spot! Your pressence is already located in ' . $this->parking->city . ' (' . $this->parking->name . ')!');
+
+        } else {
+
+            session()->flash('error', 'This parking lot is full!');
+
+        }
+
+        return redirect()->route('parking_view', ['slug' => $this->slug]);
+    }
+
+    private function cancelReservation() {
+
+        $res = Reservation::where('user_id', $this->user_id)->first();
+        $cancellation = $res->cancellation;
+
+        if(Carbon::now() <= $cancellation) {
+
+            $profile = [
+                'account' => $this->account + $this->reservation_price
+            ];
+
+            $refund = true;
+
+        } else {
+
+            $profile = [
+                'account' => $this->account - $this->penalty_price
+            ];
+
+            $refund = false;
+
+        }
+
+        $error = array(
+            'user_id' => $this->user_id,
+            'about' => 'cancellation',
+            'expire_time' => Carbon::now()->addMinute(10)
+        );
+
+        $new_error = new Error;
+        $new_error->saveError($error);
+
+        $this->user->updateUser($profile);
+        $this->user->save();
+
+        Reservation::where('user_id', Sentinel::getUser()->id)->delete();
+
+        if($refund) {
+            session()->flash('info', 'Reservation canceled in ' . $this->parking->city . ' (' . $this->parking->name . ')! You got ' . $this->reservation_price . ' kn back.');
+        } else {
+            session()->flash('info', 'Reservation canceled in ' . $this->parking->city . ' (' . $this->parking->name . ')! You got ' . $this->penalty_price . ' kn penalty.');
+        }
+
+        return redirect()->route('parking_view', ['slug' => $this->slug]);
     }
 }
