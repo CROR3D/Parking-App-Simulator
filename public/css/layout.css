@@ -135,7 +135,6 @@ th, td {
 .info-row {
     padding: 0 15px 30px 50px;
     margin: 30px 0 50px 0;
-    border-bottom: 2PX solid #1D5378;
     width: 100%;
     float: left;
 }
@@ -149,6 +148,11 @@ th, td {
 .profile-row input {
     padding: 5px 5px 5px 15px;
     margin-bottom: 10px;
+}
+
+.section-title {
+    border-left: 3px solid #4285F4;
+    padding-left: 15px;
 }
 
 #save_username, #save_email, #save_card {

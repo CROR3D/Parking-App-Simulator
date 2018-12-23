@@ -7,7 +7,7 @@
 
     @if(Sentinel::check())
         <div class="profile-row">
-            <h1>User Information</h1>
+            <h1 class="section-title">User Information</h1>
         </div>
         <div class="profile-row">
             <a href="{{ route('profile') }}" class="btn btn-info profile-right">
@@ -15,27 +15,27 @@
                 Profile Settings
             </a>
         </div>
-        <div class="info-row">
+        <div class="jumbotron info-row">
 
             <div class="profile-row">
-                <h3>Account balance: <span class="text-primary">{{ ($data['account']) ? $data['account'] : 0 }}</span> kn</h3>
+                <h3>Account balance: <span class="text-success">{{ ($data['account']) ? $data['account'] : 0 }}</span> kn</h3>
             </div>
             <div class="profile-section">
-                <h3>Current reservation: </h3>
+                <h3 class="text-primary">Current reservation: </h3>
                     <div class="profile-row">
                         @if($data['users']['reservation']['city'])
-                            <h4>City: <span class="text-primary">{{ $data['users']['reservation']['city'] }}</span></h4>
-                            <h4>Parking: <span class="text-primary">{{ $data['users']['reservation']['parking'] }}</span></h4>
-                            <h4>Reservation created: <span class="text-primary">{{ $data['users']['reservation']['time'] }}</span></h4>
-                            <h4>Reservation expires: <span class="text-primary">{{ $data['users']['reservation']['expires'] }}</span></h4>
+                            <h4>City: <span class="text-success">{{ $data['users']['reservation']['city'] }}</span></h4>
+                            <h4>Parking: <span class="text-success">{{ $data['users']['reservation']['parking'] }}</span></h4>
+                            <h4>Reservation created: <span class="text-success">{{ $data['users']['reservation']['time'] }}</span></h4>
+                            <h4>Reservation expires: <span class="text-success">{{ $data['users']['reservation']['expires'] }}</span></h4>
                             <h4>Access code: <span class="text-danger">{{ $data['users']['reservation']['code'] }}</span></h4>
                         @else
-                            <h4 class="text-primary">No reservation at the moment</h4>
+                            <h4 class="text-success">No reservation at the moment</h4>
                         @endif
                 </div>
             </div>
             <div class="profile-section">
-                <h3>Pay ticket: </h3>
+                <h3 class="text-primary">Pay ticket: </h3>
                     <div class="profile-row">
                         <h4>Ticket code: </h4>
                         <form accept-charset="UTF-8" role="form" method="post" action="{{ route('dashboard_form') }}">
@@ -52,7 +52,7 @@
             </div>
             @if(Sentinel::inRole('administrator'))
             <div class="profile-row">
-                <h3>Messages</h3>
+                <h3 class="text-primary">Messages</h3>
             </div>
             <div class="profile-section">
                 <div class="profile-row">
@@ -79,47 +79,49 @@
 
     @if (Sentinel::check() && Sentinel::inRole('administrator'))
         <div class="profile-row">
-            <h1>App Analysis</h1>
+            <h1 class="section-title">App Analysis</h1>
         </div>
-        <div class="profile-row">
-            <h3>Cities</h3>
-        </div>
-        <div class="profile-section">
+        <div class="jumbotron info-row">
             <div class="profile-row">
-                <h4 class="profile-left">Number of cities supporting aplication: {{ $data['cities']['number'] }}</h4>
-                <a href="{{ route('show', ['data' => 'cities']) }}" class="btn btn-default profile-right">
-                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                    Show
-                </a>
+                <h3 class="text-primary">Cities</h3>
             </div>
-            <div class="profile-row">
-                <h4 class="profile-left">City with most parking lots is {{ $data['cities']['most_lots'] }}</h4>
+            <div class="profile-section">
+                <div class="profile-row">
+                    <h4 class="profile-left">Number of cities supporting aplication: {{ $data['cities']['number'] }}</h4>
+                    <a href="{{ route('show', ['data' => 'cities']) }}" class="btn btn-default profile-right">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        Show
+                    </a>
+                </div>
+                <div class="profile-row">
+                    <h4 class="profile-left">City with most parking lots is {{ $data['cities']['most_lots'] }}</h4>
+                </div>
             </div>
-        </div>
 
-        <div class="profile-row">
-            <h3>Parking</h3>
-        </div>
-        <div class="profile-section">
             <div class="profile-row">
-                <h4 class="profile-left">Number of parking lots supporting application: {{ $data['parkings']['number'] }}</h4>
-                <a href="{{ route('show', ['data' => 'parking']) }}" class="btn btn-default profile-right">
-                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                    Show
-                </a>
+                <h3 class="text-primary">Parking</h3>
             </div>
-        </div>
+            <div class="profile-section">
+                <div class="profile-row">
+                    <h4 class="profile-left">Number of parking lots supporting application: {{ $data['parkings']['number'] }}</h4>
+                    <a href="{{ route('show', ['data' => 'parking']) }}" class="btn btn-default profile-right">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        Show
+                    </a>
+                </div>
+            </div>
 
-        <div class="profile-row">
-            <h3>Users</h3>
-        </div>
-        <div class="profile-section">
             <div class="profile-row">
-                <h4 class="profile-left">Number of registered users currently on parking lots: {{ $data['users']['number'] }}</h4>
-                <a href="{{ route('show', ['data' => 'users']) }}" class="btn btn-default profile-right">
-                    <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
-                    Show
-                </a>
+                <h3 class="text-primary">Users</h3>
+            </div>
+            <div class="profile-section">
+                <div class="profile-row">
+                    <h4 class="profile-left">Number of registered users currently on parking lots: {{ $data['users']['number'] }}</h4>
+                    <a href="{{ route('show', ['data' => 'users']) }}" class="btn btn-default profile-right">
+                        <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                        Show
+                    </a>
+                </div>
             </div>
         </div>
     @endif
