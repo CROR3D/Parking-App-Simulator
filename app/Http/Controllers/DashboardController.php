@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreProfile;
+use App\Http\Controllers\SimulatorController;
 use App\Models\User;
 use App\Models\Parking;
 use App\Models\Ticket;
@@ -179,5 +180,30 @@ class DashboardController extends Controller
         }
 
         return view('centaur.dashboard')->with(['data' => $data, 'admin_msg' => $admin_msg]);
+    }
+
+    public function dashboard_form()
+    {
+        $ticket_check = $_POST['ticket_code'];
+        $user_id = Sentinel::getUser()->id;
+        $user_points = User::find($user_id)->points;
+        $account = User::find($user_id)->account;
+
+        if (Ticket::where('code', $ticket_check)->exists()) {
+            $price = Ticket::where('code', $ticket_check)->price;
+            if($account >= $price) {
+                $update_ticket = Ticket::where('code', $ticket_check)->update([
+                    'paid' => true,
+                    'bonus_time' => Carbon::now()->addMinute(10)
+                ]);
+                session()->flash('info', 'Ticket has been successfully paid.');
+            } else {
+                session()->flash('info', 'You don\'t have enough enough money on your account to pay ticket.');
+            }
+
+            return redirect()->route('dashboard');
+        } else {
+
+        }
     }
 }

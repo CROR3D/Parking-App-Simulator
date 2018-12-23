@@ -31,11 +31,23 @@
 
     <div class="jumbotron">
             <section class="parking-section">
+                <div class="panel panel-default button-area text-center">
+                    <h3 class="text-center spacing-btm">Simulation helper</h3>
+                    <div class="helper">
+                        <p>Check ticket information</p>
+                        <button class="btn btn-md btn-warning" id="ticket_info" type="submit" {{ ($status['entrance'] < 2) ? 'disabled' : ''}}>Ticket Info</button>
+                    </div>
+                    <div id="info" class="helper alert-info">
+                        <h4>Ticket code: </h4>
+                        <h4>Entrance time: </h4>
+                        <h4>Price: </h4>
+                        <h4>Price per hour: </h4>
+                        <h4>Paid: </h4>
+                        <h4>App code: </h4>
+                    </div>
                 <form accept-charset="UTF-8" role="form" method="post" action="{{ route('simulator_forms', ['slug' => $parking->slug]) }}">
                 {{ csrf_field() }}
 
-                    <div class="panel panel-default button-area text-center">
-                        <h3 class="text-center spacing-btm">Movement helper</h3>
                         @if($status['entrance'] <= 2)
                             <div class="helper">
                                 <p>Access parking lot without getting a new ticket</p>

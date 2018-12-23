@@ -34,6 +34,22 @@
                         @endif
                 </div>
             </div>
+            <div class="profile-section">
+                <h3>Pay ticket: </h3>
+                    <div class="profile-row">
+                        <h4>Ticket code: </h4>
+                        <form accept-charset="UTF-8" role="form" method="post" action="{{ route('dashboard_form') }}">
+                        {{ csrf_field() }}
+                            <div class="profile-row">
+                                <input type="text" name="ticket_code" value="">
+
+                                <button id="pay_ticket" type="submit" class="btn btn-success profile-next-right">
+                                    Pay Ticket
+                                </button>
+                            </div>
+                        </form>
+                </div>
+            </div>
             @if(Sentinel::inRole('administrator'))
             <div class="profile-row">
                 <h3>Messages</h3>

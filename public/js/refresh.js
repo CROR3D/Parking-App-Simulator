@@ -9,4 +9,8 @@ $(document).ready(function() {
         });
     }
 
+    $('#ticket_info').click(function () {
+        $('#info').slideToggle(500);
+    });
+
 });

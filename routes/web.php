@@ -35,47 +35,75 @@ Route::post('password/reset', 'Auth\PasswordController@postRequest')->name('auth
 Route::resource('users', 'UserController');
 
 // Navbar
-Route::get('view', ['as' => 'view', 'uses' => 'SelectController@select', 'middleware' => 'sentinel.auth']);
-Route::post('view', ['as' => 'view_form', 'uses' => 'SelectController@get_parking']);
+Route::get('view',
+    ['as' => 'view', 'uses' => 'SelectController@select', 'middleware' => 'sentinel.auth']);
+Route::post('view',
+    ['as' => 'view_form', 'uses' => 'SelectController@get_parking']);
 
-Route::get('view/{slug}', ['as' => 'parking_view', 'uses' => 'SelectController@view_parking', 'middleware' => 'sentinel.auth']);
-Route::post('view/{slug}', ['as' => 'view_forms', 'uses' => 'ReservationsController@reservations']);
+Route::get('view/{slug}',
+    ['as' => 'parking_view', 'uses' => 'SelectController@view_parking', 'middleware' => 'sentinel.auth']);
+Route::post('view/{slug}',
+    ['as' => 'view_forms', 'uses' => 'ReservationsController@reservations']);
 
-Route::get('create', 'ParkingsController@create_form');
-Route::post('create', ['as' => 'create', 'uses' => 'ParkingsController@create']);
+Route::get('create',
+    'ParkingsController@create_form');
+Route::post('create',
+    ['as' => 'create', 'uses' => 'ParkingsController@create']);
 
-Route::get('update', ['as' => 'update', 'uses' => 'SelectController@select', 'middleware' => 'sentinel.auth']);
-Route::post('update', ['as' => 'update_select', 'uses' => 'ParkingsController@update_view']);
+Route::get('update',
+    ['as' => 'update', 'uses' => 'SelectController@select', 'middleware' => 'sentinel.auth']);
+Route::post('update',
+    ['as' => 'update_select', 'uses' => 'ParkingsController@update_view']);
 
-Route::get('update/{slug}', ['as' => 'update_fill', 'uses' => 'ParkingsController@update_parking', 'middleware' => 'sentinel.auth']);
-Route::post('update/{slug}', ['as' => 'update_form', 'uses' => 'ParkingsController@update_form']);
+Route::get('update/{slug}',
+    ['as' => 'update_fill', 'uses' => 'ParkingsController@update_parking', 'middleware' => 'sentinel.auth']);
+Route::post('update/{slug}',
+    ['as' => 'update_form', 'uses' => 'ParkingsController@update_form']);
 
 // Roles
 Route::resource('roles', 'RoleController');
 
 // Dashboard
-Route::get('dashboard', ['as' => 'dashboard', 'uses' => 'DashboardController@dashboard']);
+Route::get('dashboard',
+    ['as' => 'dashboard', 'uses' => 'DashboardController@dashboard']);
 
-Route::get('profile', ['as' => 'profile', 'uses' => 'DashboardController@profile_setup', 'middleware' => 'sentinel.auth']);
-Route::post('profile', ['as' => 'profile_form', 'uses' => 'DashboardController@profile_form']);
+Route::post('dashboard',
+    ['as' => 'dashboard_form', 'uses' => 'DashboardController@dashboard_form']);
 
-Route::get('show/{data}', ['as' => 'show', 'uses' => 'DashboardController@show', 'middleware' => 'sentinel.auth']);
+Route::get('profile',
+    ['as' => 'profile', 'uses' => 'DashboardController@profile_setup', 'middleware' => 'sentinel.auth']);
+Route::post('profile',
+    ['as' => 'profile_form', 'uses' => 'DashboardController@profile_form']);
 
-Route::get('message', ['as' => 'message', 'uses' => 'MessagesController@create', 'middleware' => 'sentinel.auth']);
-Route::post('message', ['as' => 'message_form', 'uses' => 'MessagesController@form']);
+Route::get('show/{data}',
+    ['as' => 'show', 'uses' => 'DashboardController@show', 'middleware' => 'sentinel.auth']);
 
-Route::get('messages', ['as' => 'messages', 'uses' => 'MessagesController@view', 'middleware' => 'sentinel.auth']);
-Route::get('messages/{id}', ['as' => 'view_msg', 'uses' => 'MessagesController@message', 'middleware' => 'sentinel.auth']);
-Route::delete('messages/{id?}', ['as' => 'delete_msg', 'uses' => 'MessagesController@delete']);
+Route::get('message',
+    ['as' => 'message', 'uses' => 'MessagesController@create', 'middleware' => 'sentinel.auth']);
+Route::post('message',
+    ['as' => 'message_form', 'uses' => 'MessagesController@form']);
+
+Route::get('messages',
+    ['as' => 'messages', 'uses' => 'MessagesController@view', 'middleware' => 'sentinel.auth']);
+Route::get('messages/{id}',
+    ['as' => 'view_msg', 'uses' => 'MessagesController@message', 'middleware' => 'sentinel.auth']);
+Route::delete('messages/{id?}',
+    ['as' => 'delete_msg', 'uses' => 'MessagesController@delete']);
 
 // Home
-Route::get('/', ['as' => 'index', 'uses' => 'SelectController@index', 'middleware' => 'sentinel.guest']);
+Route::get('/',
+    ['as' => 'index', 'uses' => 'SelectController@index', 'middleware' => 'sentinel.guest']);
 
 // Simulator
-Route::get('simulator', ['as' => 'simulator', 'uses' => 'SelectController@select']);
-Route::post('simulator', ['as' => 'post_simulator', 'uses' => 'SelectController@get_parking']);
+Route::get('simulator',
+    ['as' => 'simulator', 'uses' => 'SelectController@select']);
+Route::post('simulator',
+    ['as' => 'post_simulator', 'uses' => 'SelectController@get_parking']);
 
-Route::get('simulator/help', ['as' => 'simulator_help', 'uses' => 'SelectController@helper']);
+Route::get('simulator/help',
+    ['as' => 'simulator_help', 'uses' => 'SelectController@helper']);
 
-Route::get('simulator/{slug}', ['as' => 'parking_select', 'uses' => 'SelectController@view_parking']);
-Route::post('simulator/{slug}', ['as' => 'simulator_forms', 'uses' => 'SimulatorController@parking_form']);
+Route::get('simulator/{slug}',
+    ['as' => 'parking_select', 'uses' => 'SelectController@view_parking']);
+Route::post('simulator/{slug}',
+    ['as' => 'simulator_forms', 'uses' => 'SimulatorController@parking_form']);

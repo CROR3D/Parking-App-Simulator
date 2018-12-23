@@ -164,6 +164,10 @@ th, td {
     float: right;
 }
 
+.profile-next-right {
+    margin-left: 20px;
+}
+
 .profile-section {
     float: left;
     width: 100%;
@@ -269,14 +273,28 @@ th, td {
 }
 
 .helper {
-    width: 48%;
-    display: inline-block;
+    width: 100%;
+    text-align: center;
+    display: block;
     padding-bottom: 20px;
+    margin: 20px 0;
 }
 
 .helper p {
-    margin: 20px 0;
+    display: inline-block;
+    margin-right: 20px;
     font-size: 14px;
+}
+
+.helper button {
+    display: inline-block;
+}
+
+.alert-info {
+    display: none;
+    background-color: inherit;
+    padding-top: 20px;
+    padding-bottom: 30px;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -316,10 +334,6 @@ th, td {
     .ticket-area {
         margin: 0;
         margin-top: 25px;
-        width: 100%;
-    }
-
-    .helper {
         width: 100%;
     }
 

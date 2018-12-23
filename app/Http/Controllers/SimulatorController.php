@@ -304,6 +304,10 @@ class SimulatorController extends Controller
             if ($hours < 1) $hours = 1;
             $price = ceil($hours) * $price_hour;
 
+            Ticket::where('code', $ticket_check)->update([
+                'price' => $price
+            ]);
+
             $price = $price . ' kn';
 
             return redirect()->route('parking_select', ['slug' => $this->slug])->with(['got_ticket' => $got_ticket, 'ticket_check' => $ticket_check, 'price' => $price, 'total' => $time_lapse['total']]);

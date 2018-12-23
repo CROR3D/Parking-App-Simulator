@@ -18,6 +18,7 @@ class CreateTicketsTable extends Migration
             $table->integer('temp_user_id')->unsigned()->nullable()->index();
             $table->integer('parking_id')->unsigned()->nullable()->index();
             $table->string('code')->nullable();
+            $table->integer('price')->nullable();
             $table->boolean('paid')->default(false);
             $table->dateTime('entrance_time')->nullable();
             $table->dateTime('bonus_time')->nullable();
